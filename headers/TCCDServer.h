@@ -23,7 +23,7 @@
 - (id)accessRecordFromStep:(struct sqlite3_stmt *)arg1;
 @property BOOL allowsInternalSecurityPolicies;
 - (void)buildErrorString:(id)arg1 forError:(id)arg2 contextString:(id)arg3;
-- (BOOL)canProcess:(id)arg1 manageService:(id)arg2;
+- (BOOL)canProcess:(id)arg1 callFunction:(id)arg2 forService:(id)arg3;
 - (void)createStateHandler;
 - (id)descriptionDictionariesForAllAccessRecords;
 - (id)descriptionForMessage:(id)arg1;
@@ -45,10 +45,11 @@
        authorizationResult:(unsigned long long *)arg5;
 - (BOOL)
     evaluateUserIndependentEntitlementsForAccessByAttributionChain:(id)arg1
-                                                         toService:(id)arg2
+                                                       forFunction:(id)arg2
+                                                         toService:(id)arg3
                                                authorizationResult:
-                                                   (unsigned long long *)arg3
-                                                             error:(id *)arg4;
+                                                   (unsigned long long *)arg4
+                                                             error:(id *)arg5;
 - (id)fetchAllAccessRecords;
 - (id)fetchAllActivePolicies;
 - (id)fetchAllOverridenServiceNames;

@@ -4,7 +4,9 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2015 by Steve Nygard.
 //
 
-@class NSArray, NSDictionary, NSString, NSURL, TCCDMasterSyncController, TCCDServer,
+#import <objc/NSObject.h>
+
+@class NSDictionary, NSString, TCCDMasterSyncController, TCCDServer,
     TCCDSyncController;
 
 @interface TCCDPlatform : NSObject {
@@ -16,16 +18,15 @@
     NSDictionary *_servicesByName;
 }
 
-/// Get all platform names.
-+ (NSArray<NSString *> *)allPlatformNames;
++ (id)allPlatformNames;
 + (id)allTCCEntitlements;
 + (id)currentPlatform;
 + (id)iosFamilyPlatformNames;
 + (id)macOSPlatformNames;
 - (void)_configureServices;
 - (void)_invalidMethodForPlatform;
-- (NSURL *)appBundleURLContainingExecutableURL:(NSURL *)arg1;
-- (NSURL *)bundleURLContainingExecutableURL:(NSURL *)arg1;
+- (id)appBundleURLContainingExecutableURL:(id)arg1;
+- (id)bundleURLContainingExecutableURL:(id)arg1;
 @property (readonly) NSDictionary *configurationDictionary;
 - (id)description;
 - (long long)evaluatePolicyForPromptingforService:(id)arg1
@@ -52,7 +53,7 @@
 @property (readonly) NSString *name;
 - (void)notifyUserOfDeniedAccessBy:(id)arg1 forService:(id)arg2;
 - (void)prepareForAbort;
-- (BOOL)removalOfAppBundleIdentifierRequiresPruning:(NSString *)arg1;
+- (BOOL)removalOfAppBundleIdentifierRequiresPruning:(id)arg1;
 - (void)runBacktraceToolOnTask:(struct __SecTask *)arg1
                        withPID:(int)arg2
                     forService:(id)arg3;
