@@ -28,6 +28,7 @@
     BOOL _saveExpiredEntries;
     BOOL _applyDevelopmentAuthoriationPolicy;
     BOOL _checkAllowEntitlementOnResponsibleProcess;
+    BOOL _useAlternateStringsForSubsequentRequests;
     BOOL _macos_pardonMissingUsage;
     BOOL _macos_isPerSystem;
     BOOL _macos_compositionPromoteChildAuthoriationToParent;
@@ -44,6 +45,8 @@
     NSArray *_defaultAllowedIdentifiersList;
     NSNumber *_expirySeconds;
     long long _defaultDevelopmentAuthorizationValue;
+    NSString *_allowAuthorizationButtonTitleLocalizationKey;
+    NSString *_denyAuthorizationButtonTitleLocalizationKey;
     NSNumber *_ios_watchKitUserNotificationNumber;
     NSNumber *_iOS_minimumSDKVersionNumber;
     NSNumber *_watchOS_minimumSDKVersionNumber;
@@ -61,12 +64,16 @@
 + (id)serviceDescriptionsForPlatformName:(id)arg1;
 + (id)tccdPlatformNameForDYLDPlatformName:(id)arg1;
 + (id)versionStringFromDYLDVersionNumber:(id)arg1;
+@property (retain, nonatomic)
+    NSString *allowAuthorizationButtonTitleLocalizationKey;
 @property (nonatomic) BOOL allowPromptForPlatformBinaries;
 @property (nonatomic) BOOL applyDevelopmentAuthoriationPolicy;
 @property (nonatomic) BOOL checkAllowEntitlementOnResponsibleProcess;
 - (long long)compare:(id)arg1;
 @property (retain, nonatomic) NSArray *defaultAllowedIdentifiersList;
 @property (nonatomic) long long defaultDevelopmentAuthorizationValue;
+@property (retain, nonatomic)
+    NSString *denyAuthorizationButtonTitleLocalizationKey;
 - (id)description;
 - (id)descriptionDictionary;
 - (long long)developmentAuthorizationValue;
@@ -109,6 +116,7 @@
 @property (nonatomic) BOOL shouldUseADefaultDescriptionString;
 @property (retain, nonatomic) NSNumber *tvOS_minimumSDKVersionNumber;
 @property (retain, nonatomic) NSString *usageDescriptionKeyName;
+@property (nonatomic) BOOL useAlternateStringsForSubsequentRequests;
 @property (nonatomic) BOOL useExternalNotificationOfDenial;
 @property (retain, nonatomic) NSSet *validOnPlatformNames;
 @property (retain, nonatomic) NSNumber *watchOS_minimumSDKVersionNumber;

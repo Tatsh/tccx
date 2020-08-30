@@ -45,7 +45,7 @@
              forParentService:(id)arg2
                    forRequest:(id)arg3
                     intoReply:(id)arg4;
-- (id)homeRelativePathToDatabase;
+- (id)homeRelativePathToStateDirectory;
 - (id)initWithName:(id)arg1;
 - (BOOL)isNonAppBundleIdentifierValid:(id)arg1;
 - (void)loadConfigurationDictionary;

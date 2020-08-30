@@ -6,11 +6,13 @@
 
 #import <objc/NSObject.h>
 
-@class TCCDPlatform;
+@class NSString, TCCDPlatform;
 @protocol OS_dispatch_source
 , OS_os_log;
 
 @interface TCCDServer : NSObject {
+    NSString *_userHomeDirectory;
+    NSString *_stateDirectory;
     BOOL _macos_isSystemServer;
     BOOL _allowsInternalSecurityPolicies;
     BOOL _testDoComposition;
@@ -66,6 +68,7 @@
     NSObject<OS_dispatch_source> *macos_compatibilityFileVnodeSource;
 @property BOOL macos_isSystemServer;
 - (void)makeError:(id *)arg1 withCode:(long long)arg2 infoText:(id)arg3;
+- (unsigned long long)numberOfRecordsForService:(id)arg1;
 @property (retain, nonatomic) TCCDPlatform *platform;
 - (void)purgeAllExpiredAccessEntries;
 - (void)purgeExpiredAccessEntriesForService:(id)arg1;
@@ -73,6 +76,7 @@
 - (void)scheduleAccessEntryExpiryCheckForService:(id)arg1;
 - (id)serviceFromMessage:(id)arg1 error:(id *)arg2;
 @property BOOL testDoComposition;
+@property (readonly) NSString *stateDirectory;
 - (id)stateDumpDictionary;
 - (id)stringFromErrorCode:(long long)arg1;
 - (BOOL)targetAuditToken:(CDStruct_4c969caf *)arg1
@@ -81,5 +85,6 @@
 - (BOOL)updateAccessRecord:(id)arg1
                       replaceOnly:(BOOL)arg2
     doCompositionWithChildService:(BOOL)arg3;
+@property (readonly) NSString *userHomeDirectory;
 
 @end

@@ -35,7 +35,7 @@
              forParentService:(id)arg2
                    forRequest:(id)arg3
                     intoReply:(id)arg4;
-- (id)homeRelativePathToDatabase;
+- (id)homeRelativePathToStateDirectory;
 - (id)initWithName:(id)arg1;
 - (void)notifyUserOfDeniedAccessBy:(id)arg1 forService:(id)arg2;
 - (void)runBacktraceToolOnTask:(struct __SecTask *)arg1
@@ -48,7 +48,6 @@
 - (void)setupAdhocSignatureCache;
 - (BOOL)shouldUnsignedCodeBeDenied:(struct __SecCode *)arg1;
 - (BOOL)shouldUnsignedIdentityBeDenied:(id)arg1;
-- (id)stateDirectory;
 - (id)stringFromCodeRequirementData:(id)arg1;
 - (void)updateAnalyticsEvent:(id)arg1 fromIdentity:(id)arg2 keyPrefix:(id)arg3;
 
