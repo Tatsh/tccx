@@ -1,4 +1,5 @@
 # Compiled
+*.lock
 # *.com
 *.class
 *.dll
@@ -31,3 +32,10 @@ __pycache__/
 .Trashes/
 ehthumbs.db
 Thumbs.db
+
+# Swift / SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+*.xcodeproj
+DerivedData/
