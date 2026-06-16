@@ -1,57 +1,53 @@
-# tcc-preapprove (SwiftPM)
+# tccx
 
-A Swift package built on
-[`swift-argument-parser`](https://github.com/apple/swift-argument-parser),
-providing four subcommands with real `--help`, validation, and routing.
+Reverse-engineering of macOS **TCC** (Transparency, Consent & Control) and **SIP** (System
+Integrity Protection), worked out from the `tccd` binary shipped at
+`TCC.framework/Support/tccd` (macOS **10.15.6**) and the Ghidra project `tcc` - plus
+[`tcc-preapprove`](Sources/README.md), a small Swift CLI that implements the findings.
 
-Built from the `tccd` (macOS 10.15.6) reverse-engineering notes in
-[`docs/tcc-internals.md`](docs/tcc-internals.md). For why the direct-DB paths need SIP
-disabled — and a full write-up of SIP internals — see the docs index at
-[`docs/README.md`](docs/README.md) and the SIP suite
-([`docs/sip-overview.md`](docs/sip-overview.md) →
-[`docs/sip-and-tcc.md`](docs/sip-and-tcc.md)).
+The question the project set out to answer: **can TCC privacy permissions be pre-approved
+programmatically?** The short answer, established by reading the binary,
+is that a genuine grant can be _constructed_ freely, but it can only be _persisted_ with
+SIP's filesystem protection disabled, or handed to the Apple-sanctioned MDM/PPPC channel.
 
-> **Caveat (the project's conclusion).** `list` and `profile` work with no special
-> privilege. The direct-DB write paths (`grant`, `revoke`) can build a genuine grant row
-> but can only **persist** it with **SIP filesystem protection disabled**
-> (`CSR_ALLOW_UNRESTRICTED_FS`) — `TCC.db` is in a SIP storage-class–protected directory
-> only `tccd` is entitled to write. The only persist path needing no SIP change is the
-> sanctioned **MDM/PPPC profile** (`profile` subcommand). Details:
-> [`docs/sip-and-tcc.md`](docs/sip-and-tcc.md).
+## Documentation
 
-## Build & run (macOS)
+Start at the docs index, then the overviews:
+
+- **[`docs/README.md`](docs/README.md)** - index, provenance convention, and the tool caveat.
+
+### TCC
+
+- [`docs/tcc-internals.md`](docs/tcc-internals.md) - the `access` table schema,
+  `auth_value` / `auth_reason` enums, the `csreq` contract, write-path provenance, the
+  pre-approval recipe, and the PPPC/MDM profile path. Verified against the 10.15.6 binary.
+
+### SIP
+
+- [`docs/sip-overview.md`](docs/sip-overview.md) - what SIP is, history, threat model, the
+  project's conclusion (read this first).
+- [`docs/sip-configuration.md`](docs/sip-configuration.md) - the `csr` flag bitmask,
+  `csr-active-config`, `csrutil`, programmatic detection, disable mechanics.
+- [`docs/sip-filesystem-protection.md`](docs/sip-filesystem-protection.md) - "rootless":
+  the `restricted` flag, the `com.apple.rootless` xattr, storage classes, exemptions.
+- [`docs/sip-runtime-protection.md`](docs/sip-runtime-protection.md) - task-port
+  protection, kext signing, dtrace, kernel debugging, `DYLD_*` stripping, platform binaries.
+- [`docs/sip-apple-silicon-ssv.md`](docs/sip-apple-silicon-ssv.md) - LocalPolicy, `bputil`,
+  security levels, the Signed System Volume, 1TR.
+- [`docs/sip-and-tcc.md`](docs/sip-and-tcc.md) - synthesis: how SIP gates everything the
+  tool tries to do, with repo-verified anchors.
+
+## Tool
+
+`tcc-preapprove` is a SwiftPM executable. Its reference - subcommands, service aliases,
+build/run, and privilege notes - lives in **[`Sources/README.md`](Sources/README.md)**.
+
+## Building
+
+A [`Makefile`](Makefile) wraps the common tasks (run `make help` for the full list):
 
 ```bash
-swift build -c release
-.build/release/tcc-preapprove --help
-
-# or run directly:
-swift run tcc-preapprove list --client com.googlecode.iterm2
+make build          # swift build (debug)
+make release        # swift build -c release
+make run ARGS='list --client com.googlecode.iterm2'
 ```
-
-## Subcommands
-
-| Command | Purpose | Needs the binary? | Privilege |
-|---|---|---|---|
-| `grant` (default) | Write an allow row (`csreq` blob; `auth_value=2 auth_reason=3`) | yes | FDA / SIP-off (root for system DB) |
-| `revoke` | `DELETE` row(s) — `-p <svc>` or `--all` | no (`--client`) | FDA / SIP-off |
-| `list` | Print rows across user/system DBs, decoded | no | read access to TCC.db |
-| `profile` | Emit a PPPC `.mobileconfig` (CodeRequirement string) | yes | none |
-
-```bash
-swift run tcc-preapprove grant   -a /Applications/iTerm.app -p downloads,documents
-swift run tcc-preapprove revoke  --client com.googlecode.iterm2 --all --dry-run
-swift run tcc-preapprove list    --client com.googlecode.iterm2
-swift run tcc-preapprove profile -a /Applications/iTerm.app -p fda -o tcc.mobileconfig
-```
-
-## Service aliases
-`downloads`, `documents`, `desktop`, `fda`/`fulldisk`, `accessibility`, `removable`,
-`network`, `appbundles`, `developerfiles` — or pass a raw `kTCCService…` name.
-
-## Notes
-- Direct-DB subcommands need Full Disk Access or SIP disabled (see the docs §11–12).
-- `profile` output should be **signed** before MDM distribution:
-  `security cms -S -N "<cert>" -i tcc.mobileconfig -o signed.mobileconfig`, and PPPC only
-  takes effect under user-approved MDM / supervision (docs §15).
-- This is macOS-only (`Security` + `SQLite3`); it will not build on Linux.

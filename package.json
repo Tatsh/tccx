@@ -1,0 +1,112 @@
+{
+  "contributors": ["Andrew Udvare <audvare@gmail.com>"],
+  "cspell": {
+    "cache": {
+      "useCache": true
+    },
+    "dictionaryDefinitions": [
+      {
+        "name": "main",
+        "path": ".vscode/dictionary.txt"
+      }
+    ],
+    "enableFileTypes": {
+      "*": true
+    },
+    "enableGlobDot": true,
+    "files": ["**"],
+    "ignorePaths": [
+      "*.har",
+      "*.lock",
+      ".build/**",
+      ".git/**",
+      ".vscode/extensions.json",
+      ".yarn/**/*.cjs",
+      "TCC.framework/**",
+      "tcc.rep/**"
+    ],
+    "language": "en-GB",
+    "languageSettings": [
+      {
+        "dictionaries": ["main"],
+        "languageId": "*"
+      }
+    ],
+    "useGitignore": true
+  },
+  "description": "Reverse-engineering notes for macOS TCC/SIP and tcc-preapprove, a Swift CLI for TCC pre-approval.",
+  "devDependencies": {
+    "cspell": "^10.0.0",
+    "markdownlint-cli2": "^0.22.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-sort-json": "^4.2.0"
+  },
+  "files": ["LICENSE", "Package.swift", "README.md", "Sources", "docs", "headers"],
+  "homepage": "https://github.com/Tatsh/tccx#readme",
+  "keywords": [
+    "command line",
+    "macos",
+    "privacy",
+    "reverse engineering",
+    "security",
+    "sip",
+    "swift",
+    "tcc"
+  ],
+  "license": "MIT",
+  "markdownlint-cli2": {
+    "config": {
+      "MD024": {
+        "siblings_only": true
+      },
+      "MD033": {
+        "allowed_elements": ["kbd"]
+      },
+      "default": true,
+      "line-length": {
+        "code_blocks": false,
+        "line_length": 100,
+        "tables": false
+      }
+    },
+    "gitignore": true,
+    "globs": ["**/*.md", "**/*.mdc"],
+    "noBanner": true,
+    "showFound": true
+  },
+  "name": "tccx",
+  "packageManager": "yarn@4.17.0",
+  "prettier": {
+    "endOfLine": "lf",
+    "jsonRecursiveSort": true,
+    "overrides": [
+      {
+        "files": ["*.json.dist", "package.json"],
+        "options": {
+          "parser": "json"
+        }
+      }
+    ],
+    "plugins": ["prettier-plugin-sort-json"],
+    "printWidth": 100,
+    "reorderKeys": true,
+    "singleQuote": true
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Tatsh/tccx.git"
+  },
+  "scripts": {
+    "build": "swift build",
+    "build:release": "swift build -c release",
+    "check-formatting": "prettier --check . && markdownlint-cli2 --config package.json --configPointer /markdownlint-cli2",
+    "check-spelling": "cspell --no-progress",
+    "dict:update": "rm -f .vscode/dictionary.txt && cspell lint --no-progress --no-summary --unique --words-only | tr '[:upper:]' '[:lower:]' | sort -u > .vscode/dictionary.txt",
+    "format": "prettier --write . && markdownlint-cli2 --config package.json --configPointer /markdownlint-cli2 --fix",
+    "qa": "yarn check-spelling && yarn check-formatting",
+    "run": "swift run tcc-preapprove",
+    "test": "swift test"
+  },
+  "version": "0.0.0"
+}

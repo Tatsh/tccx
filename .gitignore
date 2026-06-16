@@ -1,41 +1,28 @@
-# Compiled
-*.lock
-# *.com
 *.class
 *.dll
 *.exe
+*.framework/
+*.gz
+*.kate-swp
+*.lock
 *.o
 *.so
-*.pyc
-*.pyo
-__pycache__/
-*.egg-info/
-
-# Backups
-*~
-*.swp*
-*.kate-swp
-
-# KDevelop
-.kdev4/
-
-# Miscellaneous
 *.sqlite
-.mypy_cache/
-
-# OS generated files
-.directory
+*.swp*
+*.xcodeproj
+*~
 .DS_Store
 .DS_Store?
-._*
 .Spotlight-V100/
 .Trashes/
-ehthumbs.db
-Thumbs.db
-
-# Swift / SwiftPM
+._*
 .build/
+.cspellcache
+.directory
 .swiftpm/
-Package.resolved
-*.xcodeproj
 DerivedData/
+Package.resolved
+Thumbs.db
+ehthumbs.db
+node_modules/
+tccutil
