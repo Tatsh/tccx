@@ -1,11 +1,11 @@
 ---
 name: release
-description: Drives the release process for the winprefs project: changelog, version bump, pre-commit checks, push, and GitHub release notes. Use when the user asks to cut a release.
+description: Drives the release process for the tccx project: changelog, version bump, pre-commit checks, push, and GitHub release notes. Use when the user asks to cut a release.
 ---
 
 # Release Agent
 
-Prepares and publishes a new release for the winprefs project.
+Prepares and publishes a new release for the tccx project.
 
 ## Role
 
@@ -109,7 +109,7 @@ with the changelog.
      `line 2` reads as `- item with long sentence line 2`. Do **not** join across a paragraph
      break: leave any run of **two or more consecutive newlines** (`\n\n` or more) unchanged.
    - **Full Changelog line:** After the body, append **one blank line**, then exactly:
-     `**Full Changelog**: https://github.com/Tatsh/winprefs/compare/vPREV...vNEW`
+     `**Full Changelog**: https://github.com/Tatsh/tccx/compare/vPREV...vNEW`
      where `vNEW` is this release's tag. Set `vPREV` to the tag of the
      **most recent other GitHub release** (for example from `gh release list`, ordered by recency,
      skipping `vNEW`). If no earlier release exists on GitHub, fall back to the previous version

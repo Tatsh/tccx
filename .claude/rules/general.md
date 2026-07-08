@@ -6,8 +6,7 @@
 tree that applies to the work:
 
 1. Read this file in full.
-2. Read every other `.claude/rules/*.md` whose scope matches files you will touch (see the rules
-   table in [AGENTS.md](../../AGENTS.md)).
+2. Read every other `.claude/rules/*.md` whose scope matches files you will touch.
 3. If the user or task names an agent, skill, or multi-step workflow (for example `/ci`, Wiswa
    regen, or release), read those `.claude/agents/*.md` or `.claude/skills/*/SKILL.md` files before
    changing the repository.
