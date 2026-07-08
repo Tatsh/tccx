@@ -98,8 +98,8 @@
     "url": "git@github.com:Tatsh/tccx.git"
   },
   "scripts": {
-    "build": "swift build",
-    "build:release": "swift build -c release",
+    "build": "swift build && codesign --force --sign - --entitlements entitlements.xml .build/debug/tcc-preapprove",
+    "build:release": "swift build -c release --arch arm64 --arch x86_64 && codesign --force --sign - --entitlements entitlements.xml .build/apple/Products/Release/tcc-preapprove",
     "check-formatting": "prettier --check . && markdownlint-cli2 --config package.json --configPointer /markdownlint-cli2",
     "check-spelling": "cspell --no-progress",
     "dict:update": "rm -f .vscode/dictionary.txt && cspell lint --no-progress --no-summary --unique --words-only | tr '[:upper:]' '[:lower:]' | sort -u > .vscode/dictionary.txt",

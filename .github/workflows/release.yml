@@ -5,6 +5,8 @@ on:
     tags: ['v*']
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build:
     name: Build release binary
@@ -13,14 +15,21 @@ jobs:
       - uses: actions/checkout@v7
       - name: Show Swift version
         run: swift --version
-      - name: Build (release)
-        run: swift build -c release
+      - name: Build (release, universal)
+        run: swift build -c release --arch arm64 --arch x86_64
       - name: Resolve binary path
         id: bin
-        run: echo "path=$(swift build -c release --show-bin-path)/tcc-preapprove" >> "$GITHUB_OUTPUT"
+        run: echo "path=.build/apple/Products/Release/tcc-preapprove" >> "$GITHUB_OUTPUT"
+      - name: Sign the binary with entitlements
+        run: codesign --force --sign - --entitlements entitlements.xml "${{ steps.bin.outputs.path }}"
       - name: Upload binary artifact
         uses: actions/upload-artifact@v7
         with:
-          name: tcc-preapprove-macos
+          name: tcc-preapprove
           path: ${{ steps.bin.outputs.path }}
           if-no-files-found: error
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.ref_name }}" "${{ steps.bin.outputs.path }}" --generate-notes
