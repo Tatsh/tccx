@@ -8,6 +8,9 @@ jobs:
   test:
     name: Test + coverage
     runs-on: macos-14
+    env:
+      # Allow the Coveralls action's Homebrew tap to install without a trust prompt.
+      HOMEBREW_NO_REQUIRE_TAP_TRUST: '1'
     steps:
       - uses: actions/checkout@v4
       - name: Show Swift version
@@ -26,7 +29,6 @@ jobs:
             -ignore-filename-regex='(Tests|\.build)/' > coverage.lcov
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
-        continue-on-error: true
         with:
           file: coverage.lcov
           format: lcov
