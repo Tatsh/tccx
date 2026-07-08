@@ -4,7 +4,6 @@ apfs
 appbundles
 asan
 atoken
-authoriation
 autodoc
 baccessibility
 bappbundles
@@ -41,8 +40,8 @@ cmocka
 codesign
 conds
 configurator
-connnection
 cooldown
+coveragerc
 coverallsapp
 csrctl
 csreq
@@ -50,7 +49,6 @@ csrutil
 dashcam
 datatable
 datatables
-defition
 developerfiles
 dlopen
 dlsym
@@ -65,13 +63,11 @@ eperm
 erofs
 errmsg
 esbonio
-evalute
 fulldisk
 gcov
 genindex
 ghidra
 globaltoc
-gmock
 googlecode
 handoff
 honored
@@ -81,10 +77,10 @@ instr
 intersphinx
 iterm
 iwhy
-iwyu
 jamf
 jinja
 jsonnet
+jsonschema
 kandji
 kext
 kexts
@@ -106,7 +102,6 @@ nonexistent
 nonzero
 norestricted
 nullptr
-nygard
 objc
 oneline
 parsable
@@ -114,19 +109,17 @@ pppc
 preapprove
 procs
 profdata
-promptingfor
 pycache
 pydantic
+pylock
 pyproject
 readwrite
-reflow
 regen
+schemafile
 setgid
 setuid
 setxattr
 shellcheck
-sina
-siri
 snapcraft
 sphinxcontrib
 statusline
@@ -134,7 +127,6 @@ strftime
 swiftpm
 tatsh
 tccd
-tccdmdm
 tccd's
 tccutil
 tccx
@@ -153,7 +145,6 @@ venv
 virtualenv
 wchar
 wcsnicmp
-weibo
 winegcc
 winprefs
 wiswa
