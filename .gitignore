@@ -5,6 +5,7 @@
 *.gz
 *.kate-swp
 *.lock
+!uv.lock
 *.o
 *.so
 *.sqlite
@@ -25,4 +26,17 @@ Package.resolved
 Thumbs.db
 ehthumbs.db
 node_modules/
+/docs/_build/
+/man/
+.venv/
+__pycache__/
+*.pyc
+.python-version
 tccutil
+/HANDOFF.md
+/.claude/auto-continue.md
+/.claude/standing-instructions.md
+/.claude/statusline-quota-cache.sh
+/.claude/hooks/inject-standing-instructions.sh
+/.claude/hooks/remind-on-prompt.sh
+/.claude/hooks/log-stop-failure.sh

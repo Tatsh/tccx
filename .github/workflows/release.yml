@@ -1,0 +1,28 @@
+name: build
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build release binary
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show Swift version
+        run: swift --version
+      - name: Build (release)
+        run: swift build -c release
+      - name: Run tests
+        run: swift test
+      - name: Resolve binary path
+        id: bin
+        run: echo "path=$(swift build -c release --show-bin-path)/tcc-preapprove" >> "$GITHUB_OUTPUT"
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcc-preapprove-macos
+          path: ${{ steps.bin.outputs.path }}
+          if-no-files-found: error
