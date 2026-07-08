@@ -118,7 +118,7 @@ struct Grant: ParsableCommand {
             sqlite3_bind_int(stmt, 5, ar)
             sqlite3_bind_int(stmt, 6, 1)
             csreq.withUnsafeBytes { raw in
-                sqlite3_bind_blob(stmt, 7, raw.baseAddress, Int32(csreq.count), SQLITE_TRANSIENT)
+                _ = sqlite3_bind_blob(stmt, 7, raw.baseAddress, Int32(csreq.count), SQLITE_TRANSIENT)
             }
             sqlite3_bind_null(stmt, 8)
             sqlite3_bind_int(stmt, 9, 0)
@@ -306,7 +306,7 @@ struct Profile: ParsableCommand {
             stderrLine("Sign for MDM: security cms -S -N \"<cert>\" -i \(out) -o signed.mobileconfig")
             stderrLine("Note: PPPC only applies under user-approved MDM / supervision; SystemPolicy*Folder is not honored — prefer FDA.")
         } else {
-            print(String(data: data, encoding: .utf8) ?? "")
+            print(String(decoding: data, as: UTF8.self))
         }
     }
 }
