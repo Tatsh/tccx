@@ -8,13 +8,12 @@
 
 @class NSString;
 
-@interface TCCDAccessFileProviderDomainIndirectObject
-    : TCCDAccessIndirectObject {
+@interface TCCDAccessFileProviderDomainIndirectObject : TCCDAccessIndirectObject {
     NSString *_fileProviderDomainID;
 }
 
 - (id)description;
-@property (readonly) NSString *fileProviderDomainID;
+@property(readonly) NSString *fileProviderDomainID;
 - (id)initWithFileProviderDomainID:(id)arg1;
 
 @end

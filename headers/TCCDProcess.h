@@ -31,27 +31,25 @@
 - (id)arrayValueForEntitlement:(id)arg1;
 @property CDStruct_4c969caf auditToken;
 @property unsigned int auid;
-@property (retain) NSString *binaryPath;
+@property(retain) NSString *binaryPath;
 - (BOOL)boolValueForEntitlement:(id)arg1;
 @property unsigned int codesignStatus;
 - (void)dealloc;
 - (id)description;
-@property (retain) NSData *designatedRequirementData;
-@property (readonly) struct __SecCode *dynamicCodeRef;
-@property (retain) NSDictionary *entitlements;
+@property(retain) NSData *designatedRequirementData;
+@property(readonly) struct __SecCode *dynamicCodeRef;
+@property(retain) NSDictionary *entitlements;
 @property unsigned int euid;
-- (BOOL)hasEntitlement:(id)arg1
-       containsService:(id)arg2
-               options:(unsigned long long)arg3;
+- (BOOL)hasEntitlement:(id)arg1 containsService:(id)arg2 options:(unsigned long long)arg3;
 - (BOOL)hasEntitlement:(id)arg1
     containsServiceAllOrService:(id)arg2
                         options:(unsigned long long)arg3;
-@property (retain) NSString *identifier;
+@property(retain) NSString *identifier;
 - (id)initWithAuditToken:(CDStruct_4c969caf)arg1 responsiblePath:(id)arg2;
 - (id)initWithPID:(int)arg1 responsiblePath:(id)arg2;
 - (id)logHandle;
 @property int pid;
-@property (readonly) NSString *responsiblePath;
-@property (readonly) NSString *teamIdentifier;
+@property(readonly) NSString *responsiblePath;
+@property(readonly) NSString *teamIdentifier;
 
 @end

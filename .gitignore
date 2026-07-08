@@ -4,8 +4,6 @@
 *.framework/
 *.gz
 *.kate-swp
-*.lock
-!uv.lock
 *.o
 *.so
 *.sqlite

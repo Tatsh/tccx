@@ -12,7 +12,7 @@
     TCCDCodeIdentity *_codeIdentity;
 }
 
-@property (retain) TCCDCodeIdentity *codeIdentity;
+@property(retain) TCCDCodeIdentity *codeIdentity;
 - (id)description;
 - (id)initWithCodeIdentity:(id)arg1;
 

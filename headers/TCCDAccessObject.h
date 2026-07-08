@@ -14,8 +14,8 @@
 }
 
 - (id)description;
-@property (retain) TCCDAccessIndirectObject *indirectObject;
+@property(retain) TCCDAccessIndirectObject *indirectObject;
 - (id)initWithService:(id)arg1 indirectObject:(id)arg2;
-@property (retain) TCCDService *serviceObject;
+@property(retain) TCCDService *serviceObject;
 
 @end

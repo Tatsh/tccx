@@ -13,7 +13,7 @@
     NSString *_identifier;
 }
 
-@property (retain) NSString *identifier;
+@property(retain) NSString *identifier;
 @property long long identityType;
 - (id)initWithIdentifier:(id)arg1 type:(long long)arg2;
 

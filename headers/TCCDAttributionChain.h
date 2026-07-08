@@ -17,16 +17,15 @@
     TCCDProcess *_requestingProcess;
 }
 
-- (id)_prettyGoodGuessForResponsibleProcessesForPrivilegedHelperProcess:
-    (id)arg1;
+- (id)_prettyGoodGuessForResponsibleProcessesForPrivilegedHelperProcess:(id)arg1;
 - (id)_processesMeetingRequirements:(id)arg1;
-@property (readonly) TCCDProcess *accessingProcess;
+@property(readonly) TCCDProcess *accessingProcess;
 @property BOOL accessingProcessIsValid;
 @property BOOL accessingProcessSpecified;
 - (id)description;
 - (id)initWithMessage:(id)arg1;
-@property (retain) TCCDProcess *requestingProcess;
-@property (readonly) TCCDProcess *responsibleProcess;
-@property (readonly) BOOL responsibleProcessIsValid;
+@property(retain) TCCDProcess *requestingProcess;
+@property(readonly) TCCDProcess *responsibleProcess;
+@property(readonly) BOOL responsibleProcessIsValid;
 
 @end

@@ -16,8 +16,7 @@
 - (id)_clientIdentifierFromCopyInformationMessage:(id)arg1;
 - (void)_configureServices;
 - (id)_connectionForTargetTCCD:(unsigned int)arg1;
-- (BOOL)_shouldUnsignedBundleIdentifierBeDenied:(id)arg1
-                                  staticCodeRef:(struct __SecCode *)arg2;
+- (BOOL)_shouldUnsignedBundleIdentifierBeDenied:(id)arg1 staticCodeRef:(struct __SecCode *)arg2;
 - (int)adhocSignStaticCode:(struct __SecCode *)arg1;
 - (id)appBundleURLContainingExecutableURL:(id)arg1;
 - (id)codeRequirementForIdentifyingUnsignedCode;
@@ -38,9 +37,7 @@
 - (id)homeRelativePathToStateDirectory;
 - (id)initWithName:(id)arg1;
 - (void)notifyUserOfDeniedAccessBy:(id)arg1 forService:(id)arg2;
-- (void)runBacktraceToolOnTask:(struct __SecTask *)arg1
-                       withPID:(int)arg2
-                    forService:(id)arg3;
+- (void)runBacktraceToolOnTask:(struct __SecTask *)arg1 withPID:(int)arg2 forService:(id)arg3;
 - (BOOL)sendMessageAsync:(id)arg1
       toTCCDForTargetUID:(unsigned int)arg2
           withReplyBlock:(CDUnknownBlockType)arg3;

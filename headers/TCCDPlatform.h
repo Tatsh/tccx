@@ -6,8 +6,7 @@
 
 #import <objc/NSObject.h>
 
-@class NSDictionary, NSString, TCCDMasterSyncController, TCCDServer,
-    TCCDSyncController;
+@class NSDictionary, NSString, TCCDMasterSyncController, TCCDServer, TCCDSyncController;
 
 @interface TCCDPlatform : NSObject {
     NSDictionary *_configurationDictionary;
@@ -27,15 +26,14 @@
 - (void)_invalidMethodForPlatform;
 - (id)appBundleURLContainingExecutableURL:(id)arg1;
 - (id)bundleURLContainingExecutableURL:(id)arg1;
-@property (readonly) NSDictionary *configurationDictionary;
+@property(readonly) NSDictionary *configurationDictionary;
 - (id)description;
 - (long long)evaluatePolicyForPromptingforService:(id)arg1
                                        byIdentity:(id)arg2
                                  attributionChain:(id)arg3;
 - (unsigned long long)evalutePolicyForUsageStringAndPromptingForClient:(id)arg1
                                                                service:(id)arg2
-                                                     resultUsageString:
-                                                         (id *)arg3;
+                                                     resultUsageString:(id *)arg3;
 - (void)forwardMessage:(id)arg1
     toUserTCCDFromAttributionChain:(id)arg2
                         forService:(id)arg3
@@ -49,14 +47,12 @@
 - (id)initWithName:(id)arg1;
 - (BOOL)isNonAppBundleIdentifierValid:(id)arg1;
 - (void)loadConfigurationDictionary;
-@property (retain) TCCDMasterSyncController *masterSyncController;
-@property (readonly) NSString *name;
+@property(retain) TCCDMasterSyncController *masterSyncController;
+@property(readonly) NSString *name;
 - (void)notifyUserOfDeniedAccessBy:(id)arg1 forService:(id)arg2;
 - (void)prepareForAbort;
 - (BOOL)removalOfAppBundleIdentifierRequiresPruning:(id)arg1;
-- (void)runBacktraceToolOnTask:(struct __SecTask *)arg1
-                       withPID:(int)arg2
-                    forService:(id)arg3;
+- (void)runBacktraceToolOnTask:(struct __SecTask *)arg1 withPID:(int)arg2 forService:(id)arg3;
 - (void)sendAnalyticsForAction:(long long)arg1
                        service:(id)arg2
                subjectIdentity:(id)arg3
@@ -68,8 +64,8 @@
 - (id)sendMessageSync:(id)arg1 toTCCDForTargetUID:(unsigned int)arg2;
 @property __weak TCCDServer *server;
 - (id)serviceByName:(id)arg1;
-@property (retain) NSDictionary *servicesByName;
-@property (retain) TCCDSyncController *syncController;
+@property(retain) NSDictionary *servicesByName;
+@property(retain) TCCDSyncController *syncController;
 - (id)stringForAnalyticsAction:(long long)arg1;
 - (void)updateAnalyticsEvent:(id)arg1 fromIdentity:(id)arg2 keyPrefix:(id)arg3;
 

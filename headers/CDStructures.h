@@ -6,8 +6,7 @@
 
 #pragma mark Blocks
 
-typedef void (^CDUnknownBlockType)(
-    void); // return type and parameters are unknown
+typedef void (^CDUnknownBlockType)(void); // return type and parameters are unknown
 
 #pragma mark Typedef'd Structures
 

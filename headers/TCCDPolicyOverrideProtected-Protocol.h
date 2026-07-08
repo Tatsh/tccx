@@ -11,8 +11,7 @@
 
 @protocol TCCDPolicyOverrideProtected <NSObject>
 + (NSObject<OS_os_log> *)logHandle;
-+ (NSString *)useString:(NSString *)arg1
-     orReadFromDefaults:(const struct __CFString *)arg2;
++ (NSString *)useString:(NSString *)arg1 orReadFromDefaults:(const struct __CFString *)arg2;
 - (void)loadAndParse;
-@property (retain) NSString *plistFilePath;
+@property(retain) NSString *plistFilePath;
 @end

@@ -35,10 +35,10 @@
 - (void)loadPlist;
 - (struct __CFData *)parseCodeRequirements:(id)arg1;
 - (void)parsePlist;
-@property (retain) NSDictionary *plistDictionary;
-@property (retain) NSString *plistFilePath;
-@property (retain) NSMutableDictionary *policyAccessByIdentifier;
-@property (retain) NSObject<OS_dispatch_source> *watchedFileVnodeSource;
+@property(retain) NSDictionary *plistDictionary;
+@property(retain) NSString *plistFilePath;
+@property(retain) NSMutableDictionary *policyAccessByIdentifier;
+@property(retain) NSObject<OS_dispatch_source> *watchedFileVnodeSource;
 - (BOOL)validateEntry:(id)arg1
            identifierType:(id)arg2
     codeRequirementString:(id)arg3
@@ -49,9 +49,9 @@
 - (id)watchedPath;
 
 // Remaining properties
-@property (readonly, copy) NSString *debugDescription;
-@property (readonly, copy) NSString *description;
-@property (readonly) unsigned long long hash;
-@property (readonly) Class superclass;
+@property(readonly, copy) NSString *debugDescription;
+@property(readonly, copy) NSString *description;
+@property(readonly) unsigned long long hash;
+@property(readonly) Class superclass;
 
 @end

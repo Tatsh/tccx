@@ -18,7 +18,7 @@
 }
 
 + (id)shortStringForAuthority:(long long)arg1;
-@property (readonly) TCCDAccessIdentity *accessIdentity;
+@property(readonly) TCCDAccessIdentity *accessIdentity;
 - (id)description;
 @property long long displayNamePolicyIdentifier;
 @property long long identifierAuthority;
@@ -28,8 +28,8 @@
     displayNamePolicyIdentifier:(long long)arg3
                    verifierType:(long long)arg4
                    verifierData:(id)arg5;
-@property (retain) NSData *verifierData;
+@property(retain) NSData *verifierData;
 @property long long verifierType;
-@property (readonly) NSString *verifierDescription;
+@property(readonly) NSString *verifierDescription;
 
 @end

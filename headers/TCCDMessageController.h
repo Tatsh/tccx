@@ -9,8 +9,8 @@
 @class NSMutableDictionary;
 @protocol OS_dispatch_queue;
 
-__attribute__((visibility("hidden"))) @interface TCCDMessageController
-    : NSObject {
+__attribute__((visibility("hidden")))
+@interface TCCDMessageController : NSObject {
     NSMutableDictionary *_messageTypesToHandlers;
     NSObject<OS_dispatch_queue> *_queue;
 }
@@ -19,8 +19,8 @@ __attribute__((visibility("hidden"))) @interface TCCDMessageController
 - (void)_makeReadyToReceiveMessages;
 - (void)_sendMessage:(id)arg1 handler:(CDUnknownBlockType)arg2;
 - (id)init;
-@property (retain) NSMutableDictionary *messageTypesToHandlers;
-@property (retain) NSObject<OS_dispatch_queue> *queue;
+@property(retain) NSMutableDictionary *messageTypesToHandlers;
+@property(retain) NSObject<OS_dispatch_queue> *queue;
 - (void)sendMessage:(id)arg1 ofType:(id)arg2 handler:(CDUnknownBlockType)arg3;
 - (void)setIncomingMessageType:(id)arg1 handler:(CDUnknownBlockType)arg2;
 

@@ -17,7 +17,7 @@
 }
 
 - (id)_dateFormatter;
-@property (retain) TCCDAccessObject *accessObject;
+@property(retain) TCCDAccessObject *accessObject;
 @property unsigned long long authorizationValue;
 - (id)copyWithNewSubject:(id)arg1
                   object:(id)arg2
@@ -32,7 +32,7 @@
     authorizationValue:(unsigned long long)arg3
           lastModified:(id)arg4
                  flags:(unsigned long long)arg5;
-@property (retain) NSDate *lastModifiedDate;
-@property (retain) TCCDIdentity *subjectIdentity;
+@property(retain) NSDate *lastModifiedDate;
+@property(retain) TCCDIdentity *subjectIdentity;
 
 @end

@@ -34,10 +34,10 @@
                                dynamicCodeRef:(struct __SecCode *)arg2
                  preferMostSpecificIdentifier:(BOOL)arg3;
 - (void)_makeDisplayNameBlockForURL:(id)arg1;
-@property (readonly) CDStruct_4c969caf accessorAuditToken;
-@property (readonly) NSString *attributionPath;
-@property (readonly) NSBundle *bundle;
-@property (readonly) int client_type;
+@property(readonly) CDStruct_4c969caf accessorAuditToken;
+@property(readonly) NSString *attributionPath;
+@property(readonly) NSBundle *bundle;
+@property(readonly) int client_type;
 @property unsigned long long codeSigningFlags;
 - (void)dealloc;
 - (BOOL)deriveWithAttributionChain:(id)arg1
@@ -47,10 +47,9 @@
 - (id)designatedRequirementData;
 - (id)displayName;
 - (BOOL)getSDKVersion:(unsigned int *)arg1;
-@property (readonly) struct __SecCode *guest;
-@property (readonly) NSString *identifier;
-- (id)initWithAttributionChain:(id)arg1
-    preferMostSpecificIdentifier:(BOOL)arg2;
+@property(readonly) struct __SecCode *guest;
+@property(readonly) NSString *identifier;
+- (id)initWithAttributionChain:(id)arg1 preferMostSpecificIdentifier:(BOOL)arg2;
 - (id)initWithBundleIdentifier:(id)arg1 isWK2Proxy:(BOOL)arg2;
 - (id)initWithIdentifier:(id)arg1
                     type:(int)arg2
@@ -60,14 +59,14 @@
 - (id)initWithPid:(int)arg1
                    accessorToken:(CDStruct_4c969caf)arg2
     preferMostSpecificIdentifier:(BOOL)arg3;
-@property (readonly) BOOL is_wk2_proxy;
+@property(readonly) BOOL is_wk2_proxy;
 - (BOOL)matchesCodeRequirementData:(id)arg1;
-@property (readonly) NSString *path;
-@property (readonly) NSDictionary *plugin;
-@property (readonly) NSNumber *policy_id;
-@property (readonly) CDStruct_4c969caf responsibleAuditToken;
-@property (readonly) int responsiblePID;
+@property(readonly) NSString *path;
+@property(readonly) NSDictionary *plugin;
+@property(readonly) NSNumber *policy_id;
+@property(readonly) CDStruct_4c969caf responsibleAuditToken;
+@property(readonly) int responsiblePID;
 - (struct __SecCode *)staticCode;
-@property (readonly) int targetPID;
+@property(readonly) int targetPID;
 
 @end

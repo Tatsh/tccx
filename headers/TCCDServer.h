@@ -45,13 +45,11 @@
            containsService:(id)arg3
                    options:(unsigned long long)arg4
        authorizationResult:(unsigned long long *)arg5;
-- (BOOL)
-    evaluateUserIndependentEntitlementsForAccessByAttributionChain:(id)arg1
-                                                       forFunction:(id)arg2
-                                                         toService:(id)arg3
-                                               authorizationResult:
-                                                   (unsigned long long *)arg4
-                                                             error:(id *)arg5;
+- (BOOL)evaluateUserIndependentEntitlementsForAccessByAttributionChain:(id)arg1
+                                                           forFunction:(id)arg2
+                                                             toService:(id)arg3
+                                                   authorizationResult:(unsigned long long *)arg4
+                                                                 error:(id *)arg5;
 - (id)fetchAllAccessRecords;
 - (id)fetchAllActivePolicies;
 - (id)fetchAllOverridenServiceNames;
@@ -63,28 +61,23 @@
           authorizationValue:(unsigned long long)arg2
            expiredForService:(id)arg3;
 - (BOOL)isProcessServiceCompositionManager:(id)arg1;
-@property (retain) NSObject<OS_os_log> *logHandle;
-@property (retain)
-    NSObject<OS_dispatch_source> *macos_compatibilityFileVnodeSource;
+@property(retain) NSObject<OS_os_log> *logHandle;
+@property(retain) NSObject<OS_dispatch_source> *macos_compatibilityFileVnodeSource;
 @property BOOL macos_isSystemServer;
 - (void)makeError:(id *)arg1 withCode:(long long)arg2 infoText:(id)arg3;
 - (unsigned long long)numberOfRecordsForService:(id)arg1;
-@property (retain, nonatomic) TCCDPlatform *platform;
+@property(retain, nonatomic) TCCDPlatform *platform;
 - (void)purgeAllExpiredAccessEntries;
 - (void)purgeExpiredAccessEntriesForService:(id)arg1;
 - (id)recordFromMessage:(id)arg1 accessIdentity:(id)arg2 error:(id *)arg3;
 - (void)scheduleAccessEntryExpiryCheckForService:(id)arg1;
 - (id)serviceFromMessage:(id)arg1 error:(id *)arg2;
 @property BOOL testDoComposition;
-@property (readonly) NSString *stateDirectory;
+@property(readonly) NSString *stateDirectory;
 - (id)stateDumpDictionary;
 - (id)stringFromErrorCode:(long long)arg1;
-- (BOOL)targetAuditToken:(CDStruct_4c969caf *)arg1
-             fromMessage:(id)arg2
-                   error:(id *)arg3;
-- (BOOL)updateAccessRecord:(id)arg1
-                      replaceOnly:(BOOL)arg2
-    doCompositionWithChildService:(BOOL)arg3;
-@property (readonly) NSString *userHomeDirectory;
+- (BOOL)targetAuditToken:(CDStruct_4c969caf *)arg1 fromMessage:(id)arg2 error:(id *)arg3;
+- (BOOL)updateAccessRecord:(id)arg1 replaceOnly:(BOOL)arg2 doCompositionWithChildService:(BOOL)arg3;
+@property(readonly) NSString *userHomeDirectory;
 
 @end
