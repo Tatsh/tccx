@@ -1,4 +1,3 @@
 exclude:
   - 'CHANGELOG.md'
-  - 'wiswa/tool/templates/'
 theme: 'jekyll-theme-hacker'
