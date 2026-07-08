@@ -156,3 +156,4 @@ xattr
 xcodeproj
 xcrun
 xctest
+zizmor
