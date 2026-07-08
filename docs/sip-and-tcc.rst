@@ -2,7 +2,7 @@ SIP × TCC
 =========
 
 TCC's job is to record and enforce per-app privacy decisions. SIP's job is to make those
-records **unforgeable**. The link is concrete and repo-verified:
+records **unforgeable**. The link is concrete:
 
 - The TCC databases live under ``…/Application Support/com.apple.TCC/``, directories tagged
   with the **TCC storage class** (the ``com.apple.rootless`` xattr mechanism,
@@ -39,9 +39,9 @@ exact mechanism:
        writer lacks ``…storage.TCC``
      - ``CSR_ALLOW_UNRESTRICTED_FS`` off (recovery/1TR) - or be ``tccd``
    * - **2. Cannot be the daemon**
-     - ``tccd``'s XPC verbs are entitlement-gated (``com.apple.private.tcc.manager*``),
-       checked by audit token; you can't get its task port either
-     - Apple signing you can't obtain; task-port protection (``CSR_ALLOW_TASK_FOR_PID``)
+     - ``tccd``'s XPC verbs require private entitlements (``com.apple.private.tcc.manager*``),
+       checked by audit token; you cannot get its task port either
+     - Apple signing you cannot obtain; task-port protection (``CSR_ALLOW_TASK_FOR_PID``)
 
 Anchors for wall 2 (from ``tccd``): the manager entitlement family
 (``com.apple.private.tcc.manager``, ``…manager.access.modify``, ``…manager.access.delete``,
@@ -70,7 +70,7 @@ Every persistence route, and its SIP requirement
      - One-off / VM base image only
    * - Forge via ``tccd`` XPC
      - no (tccd writes)
-     - n/a - needs ``…tcc.manager*`` entitlement you can't hold
+     - n/a - needs ``…tcc.manager*`` entitlement you cannot hold
      - Impossible unprivileged
    * - Inject / task-port ``tccd``
      - n/a

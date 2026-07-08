@@ -8,7 +8,7 @@ only to specific Apple components identified by **code signature and entitlement
 privilege level. The decision is made in the **kernel** (via the MACF / Sandbox policy and
 AMFI), so it cannot be talked out of from userspace.
 
-Concretely, SIP is one configuration word (``csr-active-config``) that gates several
+Concretely, SIP is one configuration word (``csr-active-config``) that controls several
 independent subsystems:
 
 .. list-table::
@@ -46,8 +46,8 @@ the floor: even *if* an attacker gets root, they still cannot
 The protection therefore is **most valuable exactly against the privilege level that used to
 defeat everything**. That is the lens for the rest of this suite.
 
-SIP is a *family* of checks, not a single gate
-----------------------------------------------
+SIP is a *family* of checks, not a single switch
+------------------------------------------------
 
 A frequent mistake is to treat "SIP" as one boolean. It is a bitmask (:doc:`sip-configuration`)
 precisely because the pieces are independent: you can disable filesystem protection while
@@ -61,9 +61,9 @@ How it relates to TCC
 TCC (:doc:`tcc-internals`) decides per-app privacy permissions and stores them in ``TCC.db``.
 SIP is what makes those decisions *trustworthy*: the TCC databases sit in SIP-protected
 directories tagged with the **TCC storage class**, and only ``tccd`` - which carries the
-matching storage-class entitlement **[verified]** (see :doc:`sip-and-tcc`) - may write them.
+matching storage-class entitlement (see :doc:`sip-and-tcc`) - may write them.
 Without SIP, any root process could forge a "user allowed camera" row; with SIP, even root
-cannot, and must instead go through ``tccd``'s entitlement-gated XPC interface or the MDM/PPPC
+cannot, and must instead go through ``tccd``'s entitlement-restricted XPC interface or the MDM/PPPC
 channel.
 
 TCC's integrity *depends on* SIP.
@@ -92,4 +92,4 @@ Reading order
 3. :doc:`sip-filesystem-protection` - the wall this project hits.
 4. :doc:`sip-runtime-protection` - why injection/task-port routes also fail.
 5. :doc:`sip-apple-silicon-ssv` - what changed on 11+/Apple Silicon.
-6. :doc:`sip-and-tcc` - the synthesis, with repo-verified anchors.
+6. :doc:`sip-and-tcc` - the synthesis.

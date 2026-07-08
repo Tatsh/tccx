@@ -45,7 +45,7 @@ granting "root can do it." ``installd``/``system_installd`` instead hold the bro
 heritable variant passes the exemption to child processes), which is why package installs can lay
 down ``/System`` content during an OS update while nothing else can.
 
-[verified] TCC's storage class, straight from this repo's ``tccd``
+TCC's storage class, straight from this repo's ``tccd``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``strings TCC.framework/Support/tccd`` contains **both** storage-class entitlement names:
@@ -61,7 +61,7 @@ Therefore:
 
 - ``tccd``, holding ``…storage.TCC``, may write ``TCC.db``.
 - Any other process - including root, including a copy of ``tccd`` you run yourself
-  (:doc:`sip-runtime-protection` explains why re-running the code doesn't inherit the identity) -
+  (:doc:`sip-runtime-protection` explains why re-running the code does not inherit the identity) -
   may **not**, while SIP filesystem protection is on.
 
 This is the precise, evidence-backed refinement of :doc:`tcc-internals` §11's phrase "Apple-signed

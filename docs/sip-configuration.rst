@@ -67,7 +67,7 @@ table as "as of recent macOS" and decode unknown high bits conservatively.
 .. note::
 
    The bit that matters to this project is **bit 1,** ``CSR_ALLOW_UNRESTRICTED_FS`` - that is
-   the gate on writing ``TCC.db``. See :doc:`sip-filesystem-protection` and :doc:`sip-and-tcc`.
+   what allows writing ``TCC.db``. See :doc:`sip-filesystem-protection` and :doc:`sip-and-tcc`.
 
 Where the word is stored
 ------------------------
@@ -156,7 +156,7 @@ Apple Silicon
 2. Terminal → ``csrutil disable``. On Apple Silicon this also **lowers the OS to Reduced
    Security** and prompts for an **admin credential**, because the change is written into the
    SEP-signed LocalPolicy, not NVRAM.
-3. For *system-volume* edits you must additionally ``csrutil authenticated-root disable`` (clears
+3. For *system-volume* edits you must also run ``csrutil authenticated-root disable`` (clears
    bit 11) - see :doc:`sip-apple-silicon-ssv`.
 4. Reboot.
 
@@ -164,5 +164,5 @@ Apple Silicon
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``csrutil`` is the friendly front end; ``bputil`` manipulates the boot policy directly and can
-express states ``csrutil`` won't. It is unsupported for general use and easy to brick a boot
-with - prefer ``csrutil`` unless you specifically need a policy bit it can't set.
+express states ``csrutil`` cannot. It is unsupported for general use and easy to brick a boot
+with - prefer ``csrutil`` unless you specifically need a policy bit it cannot set.

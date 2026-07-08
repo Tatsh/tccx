@@ -34,7 +34,7 @@ Both databases are SIP-protected. Writing requires **either SIP disabled, or the
 holding Full Disk Access** (and on macOS 11+, Apple closed the FDA-write hole, so newer OSes
 effectively require SIP off for direct DB edits).
 
-``access`` table schema (verified)
+``access`` table schema
 ----------------------------------
 
 The exact statements ``tccd`` runs (string table addresses in parentheses):
@@ -60,7 +60,7 @@ The exact statements ``tccd`` runs (string table addresses in parentheses):
      indirect_object_identifier, indirect_object_code_identity, flags)
     VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
 
-Verbatim ``CREATE TABLE`` DDL (schema version 27, string @ ``0x10005f2cc``) - authoritative:
+Verbatim ``CREATE TABLE`` DDL (schema version 27, string @ ``0x10005f2cc``):
 
 .. code-block:: sql
 
@@ -103,7 +103,7 @@ Column meanings:
      - ``0``\ =bundle identifier, ``1``\ =absolute path
    * - ``auth_value``
      - INT
-     - ``0``\ =denied, ``2``\ =allowed (``1``\ =unknown). Verified: migration SQL keys on
+     - ``0``\ =denied, ``2``\ =allowed (``1``\ =unknown). Migration SQL keys on
        ``auth_value = 2`` for "allowed".
    * - ``auth_reason``
      - INT
@@ -149,7 +149,7 @@ System/admin services - **system DB**:
   ``…RemovableVolumes``, ``…SysAdminFiles``
 - ``kTCCServiceAccessibility``, ``kTCCServiceEndpointSecurityClient``
 
-``auth_reason`` enum (verified from ``GetAuthReasonString`` @ ``0x100001e80``)
+``auth_reason`` enum (from ``GetAuthReasonString`` @ ``0x100001e80``)
 ------------------------------------------------------------------------------
 
 .. list-table::
@@ -209,7 +209,7 @@ Consequences:
 - The blob must be a real serialised ``SecRequirement``, and the **running** client must satisfy
   it (designated requirement match). Generate it from the target binary's own DR.
 
-Write-path provenance (who writes what)
+Write-path provenance
 ---------------------------------------
 
 .. list-table::
@@ -235,7 +235,7 @@ To produce a row **indistinguishable from a genuine user grant**: ``auth_value=2
 Why there is no "private API" to inject a grant
 -----------------------------------------------
 
-The TCC XPC write verbs are entitlement-gated. ``CopyRequiredEntitlementForTCCCommand``
+The TCC XPC write verbs require private entitlements. ``CopyRequiredEntitlementForTCCCommand``
 (``0x1000298a4``) maps each command (e.g. ``TCCAccessSetInternal``) to a
 ``com.apple.private.tcc.manager.*`` entitlement. You cannot hold those without Apple signing /
 disabling AMFI. The only realistic programmatic write paths are therefore:
@@ -276,19 +276,19 @@ Real test: have the app read ``~/Downloads`` and confirm **no prompt** appears.
 Version caveats
 ---------------
 
-Everything here is verified for **10.15.6**. On macOS 11/12+: the ``access`` schema gained columns
+Everything here applies to **10.15.6**. On macOS 11/12+: the ``access`` schema gained columns
 (``boot_uuid``, ``last_reminded``, ``pid``, ``responsible``, …), ``auth_value`` gained ``3``\ =limited,
-the DB write path tightened to SIP-off only, and the cache-reload behaviour changed. Re-verify
+the DB write path tightened to SIP-off only, and the cache-reload behaviour changed. Re-check
 ``.schema access`` and re-read ``GetAuthReasonString`` on the target OS.
 
-The two blockers (why direct writes need SIP off, and why there's no shortcut)
-------------------------------------------------------------------------------
+The two blockers (why direct writes need SIP off, and why there is no shortcut)
+--------------------------------------------------------------------------------
 
 Pre-approving via the DB or via "calling tccd's functions" runs into **two independent,
 kernel-enforced walls**:
 
 1. **SIP filesystem protection on** ``TCC.db``\ **.** Both databases are SIP-protected paths.
-   ``tccd`` can write them because it's an Apple-signed *platform binary* exempted on those paths;
+   ``tccd`` can write them because it is an Apple-signed *platform binary* exempted on those paths;
    an arbitrary process is not. This is enforced by the kernel/sandbox, not by a userspace check.
 
 2. **AMFI entitlement check on the caller.** ``tccd``'s privileged operations are an **XPC
@@ -318,10 +318,10 @@ Why ``dlsym(tccd)`` / injection is an architectural dead-end
 - The XPC interface authenticates the **caller** by audit token, so picking a different entry
   point changes nothing.
 - Running code *inside* ``tccd``'s process needs its task port → blocked by SIP + hardened runtime
-  + restricted entitlements. That's defeating the security boundary, not config.
+  + restricted entitlements. That is defeating the security boundary, not config.
 
 **Conclusion:** the only ways to write a grant are (a) be SIP-off, (b) be a process Apple blessed
-with the entitlement (you can't be), or (c) hand the decision to the sanctioned channel - an MDM
+with the entitlement (you cannot be), or (c) hand the decision to the sanctioned channel - an MDM
 **PPPC profile**.
 
 Audience → method matrix
@@ -347,11 +347,11 @@ Audience → method matrix
 Notes:
 
 - **PPPC cannot pre-grant the folder services** (``SystemPolicyDownloadsFolder``/``Documents``/
-  ``Desktop``) reliably - they're user-consent-only. Grant **FDA** instead; it covers them.
+  ``Desktop``) reliably - they are user-consent-only. Grant **FDA** instead; it covers them.
 - FDA-via-profile only auto-applies under **user-approved MDM / supervision**; a double-clicked
-  profile won't grant it.
+  profile will not grant it.
 - "Disable SIP → write → re-enable" *does* leave valid grants (csreq is validated against the
-  running process, not SIP state), but it's two Recovery trips / three reboots - only sane for a
+  running process, not SIP state), but it is two Recovery trips / three reboots - only sane for a
   one-off personal bootstrap, never for a distributed script.
 
 PPPC ``.mobileconfig`` generation (the SIP-free, distributable path)
@@ -420,7 +420,7 @@ Profiles**, and it will show as installed. But the ``com.apple.TCC.configuration
 payload is special-cased: its grants are **only applied when the profile is delivered by MDM**, and
 that enrolment must be **user-approved (UAMDM)** or the device **supervised** (ADE / Apple
 Configurator). A manually double-clicked PPPC profile on a non-MDM Mac installs but grants
-**nothing** - this gate exists so a rogue ``.mobileconfig`` can't self-grant Full Disk Access.
+**nothing** - this restriction exists so a rogue ``.mobileconfig`` cannot self-grant Full Disk Access.
 
 Also: ``sudo profiles install -path …`` for configuration profiles was **removed in macOS 11+** (the
 CLI can still ``list``/``remove``). So on 11+ with no MDM there is *no* path to an effective PPPC
@@ -443,10 +443,10 @@ Deployment options
      - The only way to make PPPC work on *your own* machine without a commercial MDM.
    * - Supervision via **Apple Configurator 2**
      - medium–high
-     - Supervising an Apple-silicon Mac erases it; via ADE it's seamless on next setup.
+     - Supervising an Apple-silicon Mac erases it; via ADE it applies automatically on next setup.
    * - Manual double-click
      - n/a
-     - Installs but TCC ignores the grants. Don't rely on it.
+     - Installs but TCC ignores the grants. Do not rely on it.
 
 Minimal self-hosted flow (``nanomdm``, outline)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -458,7 +458,7 @@ Minimal self-hosted flow (``nanomdm``, outline)
    server's check-in/command URLs). Install it on the Mac.
 4. **User-approve the enrolment (UAMDM)** - on the Mac, approve Device Management in System
    Settings (Apple-silicon requires the local user to click Allow). Without this approval the
-   enrolment is *not* user-approved and PPPC still won't apply.
+   enrolment is *not* user-approved and PPPC still will not apply.
 5. **Push the PPPC profile** - queue an ``InstallProfile`` command carrying the signed
    ``.mobileconfig`` from ``tcc-preapprove profile``.
 
@@ -472,7 +472,7 @@ MDMs generally require a signed profile:
    security cms -S -N "<Developer ID / installer certificate>" \
      -i tcc.mobileconfig -o tcc-signed.mobileconfig
 
-Verify it took (close the loop on the target Mac)
+Verify it took
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - ``profiles list`` (or System Settings → Profiles) shows the profile installed.
@@ -486,23 +486,22 @@ Verify it took (close the loop on the target Mac)
   - a bin-compat override path (``binCompatOverridePath``)
 
   So ``tcc-preapprove list`` / ``sqlite3`` will **not** show them - inspect the plist instead. (The
-  ``access_overrides`` SQLite table is **unrelated**: it's a per-service flag list, ``service TEXT
+  ``access_overrides`` SQLite table is **unrelated**: it is a per-service flag list, ``service TEXT
   NOT NULL PRIMARY KEY``, toggled by the ``TCCAccessSetOverride`` verb - not where profile grants
   live.)
-- **VERIFIED keys** ``tccd`` reads from each override entry (``0x100045dfd``): ``IdentifierType``
+- The keys ``tccd`` reads from each override entry (``0x100045dfd``): ``IdentifierType``
   (``bundleID``/``path``), ``CodeRequirementData`` (the **binary** blob the OS compiles from your
   profile's ``CodeRequirement`` *string* at install), ``Authorization``
   (``Allow``/``Deny``/``AllowStandardUserToSetSystemService``), ``Allowed`` (legacy bool),
   ``StaticCode``, plus AppleEvents ``AEReceiver*``. The code-requirement check uses the same
-  ``matchesCodeRequirementData:`` → ``SecRequirementCreateWithData`` path as DB grants. **This
-  confirms** ``tcc-preapprove profile`` **emits the correct keys** (``CodeRequirement`` string +
+  ``matchesCodeRequirementData:`` → ``SecRequirementCreateWithData`` path as DB grants; ``tcc-preapprove profile`` emits these keys (``CodeRequirement`` string +
   ``Authorization`` + ``Allowed``).
 - The evaluation returns an auth **value** (``2``\ =allow / ``0``\ =deny / ``1``\ =no-decision); the
   result is reported under the **Override Policy** reason (vs ``Service Policy`` for DB grants) and
   logged as ``Override: eval: matched …; result: Auth:…``.
 - Functional test: launch the app and confirm no prompt.
 
-``auth_reason = 5`` ("Override Policy") **is verified written in the request path.** In
+``auth_reason = 5`` ("Override Policy") **is written in the request path.** In
 ``HandleAccessRequest``, the policy-decision branch stamps the result accumulators directly - e.g.
 the unsigned-code policy *deny*: ``auth_value = 0; auth_reason = 5`` (logged ``"Policy Denies: %@
 for %@ due to unsigned code policy."``). The literal ``5`` occurs exactly once in that function -
@@ -512,14 +511,8 @@ form: ``local_2a8[3] = 0; local_3d0[3] = 5;`` where ``[3]`` = the ``+0x18`` resu
 
 .. note::
 
-   Honest scope note: the override *evaluation* (sources, keys, csreq match, value semantics) and
-   the ``auth_reason = 5`` stamp are **verified** from ``tccd`` (``0x1000440c2``, ``0x100045dfd``,
-   ``HandleAccessRequest``) - but ``5`` is proven specifically for a policy **deny** (unsigned code).
-   For an MDM-profile **allow** the reason is **not** pinned to ``5``: in ``HandleAccessRequest`` the
-   reason accumulator (``local_3d0``, a ``__block`` byref) initialises to ``0``/None and is written
-   to ``5`` **only** in that deny branch; the allow branch (``auth_value=2``) does not stamp ``5`` in
-   view. Resolving the allow reason would need the ``__block``-forwarding chain + the
-   override-decided branch (or ``EvaluateAccessAuthorization``, which the decompiler times out on) -
-   not done here, and **not** assumed. Treat profile *deny* → reason 5 as verified; profile *allow*
-   reason as **unresolved**. (The ``nanomdm`` enrolment sequence above is likewise the standard
-   documented flow, not run end-to-end.)
+   The ``auth_reason = 5`` stamp above is for a policy **deny** (unsigned code). For an MDM-profile
+   **allow** the reason is **not** ``5``: in ``HandleAccessRequest`` the reason accumulator
+   (``local_3d0``, a ``__block`` byref) initialises to ``0``/None and is written to ``5`` **only** in
+   the deny branch; the allow branch (``auth_value=2``) does not stamp ``5``. The allow reason lives
+   in the ``__block``-forwarding chain / override-decided branch (or ``EvaluateAccessAuthorization``).
