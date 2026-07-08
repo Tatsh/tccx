@@ -1,0 +1,18 @@
+{
+  "commitizen": {
+    "name": "cz_path",
+    "remove_path_prefixes": ["include", "src"],
+    "tag_format": "v$version",
+    "version_files": [
+      "CITATION.cff",
+      "Package.swift",
+      "README.md",
+      "Sources/tcc-preapprove/Commands.swift",
+      "man/tcc-preapprove.1",
+      "package.json",
+      "pyproject.toml"
+    ],
+    "version_provider": "npm",
+    "version_scheme": "semver"
+  }
+}
