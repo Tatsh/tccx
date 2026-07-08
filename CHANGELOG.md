@@ -7,6 +7,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.3] - 2026-07-08
+
+### Fixed
+
+- Align the package homepage metadata with the project landing page.
+- Correct the build commands shown in the README to reflect the universal, signed builds.
+
 ## [0.0.2] - 2026-07-08
 
 ### Changed

@@ -7,7 +7,7 @@ license = "MIT"
 name = "tccx"
 readme = "README.md"
 requires-python = ">=3.13"
-version = "0.0.2"
+version = "0.0.3"
 
 [project.urls]
 homepage = "https://tatsh.github.io/tccx/"
