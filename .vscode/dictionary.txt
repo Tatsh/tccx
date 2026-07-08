@@ -110,6 +110,7 @@ pppc
 preapprove
 procs
 profdata
+publickey
 pycache
 pydantic
 pylock
