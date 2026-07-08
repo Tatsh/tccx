@@ -1,38 +1,40 @@
-name: build
-on:
-  push:
-    branches: [master]
-    tags: ['v*']
-  pull_request:
-  workflow_dispatch:
-permissions:
-  contents: write
 jobs:
   build:
-    name: Build release binary
-    runs-on: macos-14
     env:
-      BIN_PATH: .build/apple/Products/Release/tcc-preapprove
+      BIN_PATH: '.build/apple/Products/Release/tcc-preapprove'
+    name: 'Build release binary'
+    runs-on: 'macos-14'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: 'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0' # v7.0.0
         with:
           persist-credentials: false
-      - name: Show Swift version
-        run: swift --version
-      - name: Build (release, universal)
-        run: swift build -c release --arch arm64 --arch x86_64
-      - name: Sign the binary with entitlements
-        run: codesign --force --sign - --entitlements entitlements.xml "$BIN_PATH"
-      - name: Upload binary artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - name: 'Show Swift version'
+        run: 'swift --version'
+      - name: 'Build (release, universal)'
+        run: 'swift build -c release --arch arm64 --arch x86_64'
+      - name: 'Sign the binary with entitlements'
+        run: 'codesign --force --sign - --entitlements entitlements.xml "$BIN_PATH"'
+      - name: 'Upload binary artifact'
+        uses: 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' # v7.0.1
         with:
-          name: tcc-preapprove
-          path: ${{ env.BIN_PATH }}
-          if-no-files-found: error
-      - if: github.ref_type == 'tag'
-        name: Create or update draft release
-        env:
-          GH_TOKEN: ${{ github.token }}
+          if-no-files-found: 'error'
+          name: 'tcc-preapprove'
+          path: '${{ env.BIN_PATH }}'
+      - env:
+          GH_TOKEN: '${{ github.token }}'
+        if: github.ref_type == 'tag'
+        name: 'Create or update draft release'
         run: |
           gh release create "$GITHUB_REF_NAME" --draft --generate-notes "$BIN_PATH" ||
             gh release upload "$GITHUB_REF_NAME" "$BIN_PATH" --clobber
+name: 'build'
+'on':
+  pull_request:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
+  workflow_dispatch:
+permissions:
+  contents: 'write'

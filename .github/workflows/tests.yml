@@ -1,27 +1,19 @@
-name: tests
-on:
-  push:
-    branches: [master]
-  pull_request:
-  workflow_dispatch:
-permissions:
-  contents: read
 jobs:
   test:
-    name: Test + coverage
-    runs-on: macos-14
     env:
       # Allow the Coveralls action's Homebrew tap to install without a trust prompt.
       HOMEBREW_NO_REQUIRE_TAP_TRUST: '1'
+    name: 'Test + coverage'
+    runs-on: 'macos-14'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: 'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0' # v7.0.0
         with:
           persist-credentials: false
-      - name: Show Swift version
-        run: swift --version
-      - name: Run tests with coverage
-        run: swift test --enable-code-coverage
-      - name: Export lcov
+      - name: 'Show Swift version'
+        run: 'swift --version'
+      - name: 'Run tests with coverage'
+        run: 'swift test --enable-code-coverage'
+      - name: 'Export lcov'
         run: |
           bin="$(swift build --show-bin-path)"
           prof="$bin/codecov/default.profdata"
@@ -31,9 +23,18 @@ jobs:
             -ignore-filename-regex='(Tests|\.build)/'
           xcrun llvm-cov export -format=lcov "$exe" -instr-profile "$prof" \
             -ignore-filename-regex='(Tests|\.build)/' > coverage.lcov
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2.3.7
+      - name: 'Upload coverage to Coveralls'
+        uses: 'coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e' # v2.3.7
         with:
-          file: coverage.lcov
-          format: lcov
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file: 'coverage.lcov'
+          format: 'lcov'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+name: 'tests'
+'on':
+  pull_request:
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+permissions:
+  contents: 'read'
