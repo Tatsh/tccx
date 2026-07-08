@@ -27,15 +27,15 @@ protection disabled, or handed to the Apple-sanctioned MDM/PPPC channel.
 ## Documentation
 
 The full TCC & SIP write-up is published with Sphinx at
-<https://tccx.readthedocs.io/en/latest/>.
+[tccx.readthedocs.io](https://tccx.readthedocs.io/en/latest/).
 
 To build it locally: `yarn gen-docs` (output in `docs/_build/html`).
 
 ## Tool
 
 `tcc-preapprove` is a SwiftPM executable. Its reference - subcommands, service aliases,
-build/run, and privilege notes - is documented at
-<https://tccx.readthedocs.io/en/latest/tcc-preapprove.html>.
+build/run, and privilege notes - is documented in
+[the tcc-preapprove reference](https://tccx.readthedocs.io/en/latest/tcc-preapprove.html).
 
 ## Building
 
@@ -48,5 +48,3 @@ yarn test           # swift test
 yarn gen-docs       # build the Sphinx docs into docs/_build/html
 swift run tcc-preapprove --help
 ```
-
-This is **macOS-only** (it links `Security` and `SQLite3`); it will not build on Linux.

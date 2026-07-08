@@ -77,8 +77,7 @@ Inspecting protection on a live system
    xattr -l "/Library/Application Support/com.apple.TCC/TCC.db"   # com.apple.rootless present?
    ls -ldO /System /usr /usr/local                          # /usr restricted, /usr/local not
 
-To see what an entitled daemon carries (on a real macOS box, not extractable the same way on
-Linux):
+To see what an entitled daemon carries (on a real macOS box):
 
 .. code-block:: shell
 

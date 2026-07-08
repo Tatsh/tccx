@@ -29,8 +29,6 @@ From the repository root:
    # run a subcommand directly:
    swift run tcc-preapprove list --client com.googlecode.iterm2
 
-This is **macOS-only** (``Security`` + ``SQLite3``); it will not build on Linux.
-
 Subcommands
 -----------
 
