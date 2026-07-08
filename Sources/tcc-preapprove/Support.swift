@@ -100,10 +100,10 @@ func designatedRequirementData(forPath path: String) throws -> Data {
     }
     var req: SecRequirement?
     st = SecCodeCopyDesignatedRequirement(code, SecCSFlags(rawValue: 0), &req)
-    guard st == errSecSuccess, let r = req else { throw ToolError("SecCodeCopyDesignatedRequirement failed (\(st))") }
+    guard st == errSecSuccess, let r = req else { throw ToolError("SecCodeCopyDesignatedRequirement failed (\(st)).") }
     var data: CFData?
     st = SecRequirementCopyData(r, SecCSFlags(rawValue: 0), &data)
-    guard st == errSecSuccess, let blob = data else { throw ToolError("SecRequirementCopyData failed (\(st))") }
+    guard st == errSecSuccess, let blob = data else { throw ToolError("SecRequirementCopyData failed (\(st)).") }
     return blob as Data
 }
 
@@ -116,10 +116,10 @@ func designatedRequirementString(forPath path: String) throws -> String {
     }
     var req: SecRequirement?
     st = SecCodeCopyDesignatedRequirement(code, SecCSFlags(rawValue: 0), &req)
-    guard st == errSecSuccess, let r = req else { throw ToolError("SecCodeCopyDesignatedRequirement failed (\(st))") }
+    guard st == errSecSuccess, let r = req else { throw ToolError("SecCodeCopyDesignatedRequirement failed (\(st)).") }
     var str: CFString?
     st = SecRequirementCopyString(r, SecCSFlags(rawValue: 0), &str)
-    guard st == errSecSuccess, let s = str else { throw ToolError("SecRequirementCopyString failed (\(st))") }
+    guard st == errSecSuccess, let s = str else { throw ToolError("SecRequirementCopyString failed (\(st)).") }
     return s as String
 }
 

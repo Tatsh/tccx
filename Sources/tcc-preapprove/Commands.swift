@@ -18,11 +18,11 @@ struct TargetOptions: ParsableArguments {
 
     func derive() throws -> (client: String, type: Int32) {
         if let c = client { return (c, Int32(clientType ?? (app != nil ? 0 : 1))) }
-        guard let p = path else { throw ToolError("need --app/--binary or --client") }
-        guard FileManager.default.fileExists(atPath: p) else { throw ToolError("not found: \(p)") }
+        guard let p = path else { throw ToolError("Need --app/--binary or --client.") }
+        guard FileManager.default.fileExists(atPath: p) else { throw ToolError("Not found: \(p).") }
         if app != nil {
             guard let b = Bundle(path: p), let bid = b.bundleIdentifier else {
-                throw ToolError("could not read CFBundleIdentifier from \(p)")
+                throw ToolError("Could not read CFBundleIdentifier from \(p).")
             }
             return (bid, Int32(clientType ?? 0))
         }
@@ -34,7 +34,7 @@ struct ServiceOptions: ParsableArguments {
     @Option(name: [.customShort("p"), .long],
             help: "Comma list of aliases or raw kTCCService… names (downloads,documents,fda,…).")
     var permissions: String?
-    @Flag(help: "revoke: all services for the client.  (Ignored elsewhere.)")
+    @Flag(help: "Target all services for the client (revoke only; ignored elsewhere).")
     var all = false
     @Option(help: "DB routing override: user|system|both.")
     var db: String?
@@ -46,7 +46,7 @@ struct ServiceOptions: ParsableArguments {
         case "user": return .user
         case "system": return .system
         case "both", nil: return nil
-        default: throw ToolError("--db must be user|system|both")
+        default: throw ToolError("The --db option must be user, system, or both.")
         }
     }
 }
@@ -59,7 +59,7 @@ struct TCCPreapprove: ParsableCommand {
         commandName: "tcc-preapprove",
         abstract: "Inspect / pre-approve / revoke TCC grants for a binary or app (macOS).",
         discussion: "Built from tccd (10.15.6) RE notes (docs/tcc-internals.md). "
-            + "grant/revoke/list need FDA or SIP-off (root for the system DB); "
+            + "Grant/revoke/list need FDA or SIP-off (root for the system DB); "
             + "profile needs neither.",
         subcommands: [Grant.self, Revoke.self, List.self, Profile.self],
         defaultSubcommand: Grant.self
@@ -78,9 +78,9 @@ struct Grant: ParsableCommand {
 
     func run() throws {
         let (client, clientType) = try target.derive()
-        guard let path = target.path else { throw ToolError("grant needs --app/--binary to compute csreq") }
+        guard let path = target.path else { throw ToolError("Grant needs --app/--binary to compute csreq.") }
         let services = svc.services()
-        guard !services.isEmpty else { throw ToolError("grant needs --permissions") }
+        guard !services.isEmpty else { throw ToolError("Grant needs --permissions.") }
         let csreq = try designatedRequirementData(forPath: path)
         let av = Int32(authValue), ar = Int32(authReason)
 
@@ -108,7 +108,7 @@ struct Grant: ParsableCommand {
             defer { sqlite3_close(db) }
             var stmt: OpaquePointer?
             guard sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK else {
-                throw ToolError("prepare: \(String(cString: sqlite3_errmsg(db)))")
+                throw ToolError("Prepare failed: \(String(cString: sqlite3_errmsg(db))).")
             }
             defer { sqlite3_finalize(stmt) }
             sqlite3_bind_text(stmt, 1, info.service, -1, SQLITE_TRANSIENT)
@@ -126,7 +126,7 @@ struct Grant: ParsableCommand {
             sqlite3_bind_null(stmt, 11)
             sqlite3_bind_int(stmt, 12, 0)
             guard sqlite3_step(stmt) == SQLITE_DONE else {
-                throw ToolError("insert \(info.service): \(String(cString: sqlite3_errmsg(db)))")
+                throw ToolError("Insert failed for \(info.service): \(String(cString: sqlite3_errmsg(db))).")
             }
             print("  ✓ granted \(info.service) -> \(file)")
         }
@@ -145,7 +145,7 @@ struct Revoke: ParsableCommand {
     func run() throws {
         let (client, clientType) = try target.derive()
         let services = svc.services()
-        guard svc.all || !services.isEmpty else { throw ToolError("revoke needs --permissions or --all") }
+        guard svc.all || !services.isEmpty else { throw ToolError("Revoke needs --permissions or --all.") }
 
         var targets: [(file: String, service: String?)] = []
         if svc.all {
@@ -172,7 +172,7 @@ struct Revoke: ParsableCommand {
             defer { sqlite3_close(db) }
             var stmt: OpaquePointer?
             guard sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK else {
-                throw ToolError("prepare: \(String(cString: sqlite3_errmsg(db)))")
+                throw ToolError("Prepare failed: \(String(cString: sqlite3_errmsg(db))).")
             }
             defer { sqlite3_finalize(stmt) }
             var idx: Int32 = 1
@@ -180,7 +180,7 @@ struct Revoke: ParsableCommand {
             sqlite3_bind_text(stmt, idx, client, -1, SQLITE_TRANSIENT); idx += 1
             sqlite3_bind_int(stmt, idx, clientType)
             guard sqlite3_step(stmt) == SQLITE_DONE else {
-                throw ToolError("delete: \(String(cString: sqlite3_errmsg(db)))")
+                throw ToolError("Delete failed: \(String(cString: sqlite3_errmsg(db))).")
             }
             print("  ✓ revoked \(sqlite3_changes(db)) row(s) \(service ?? "(all services)") <- \(file)")
         }
@@ -255,9 +255,9 @@ struct Profile: ParsableCommand {
 
     func run() throws {
         let (client, clientType) = try target.derive()
-        guard let path = target.path else { throw ToolError("profile needs --app/--binary to read the designated requirement") }
+        guard let path = target.path else { throw ToolError("Profile needs --app/--binary to read the designated requirement.") }
         let services = svc.services()
-        guard !services.isEmpty else { throw ToolError("profile needs --permissions") }
+        guard !services.isEmpty else { throw ToolError("Profile needs --permissions.") }
         let codeReq = try designatedRequirementString(forPath: path)
         let idType = clientType == 0 ? "bundleID" : "path"
 
@@ -297,12 +297,12 @@ struct Profile: ParsableCommand {
 
         let data: Data
         do { data = try PropertyListSerialization.data(fromPropertyList: config, format: .xml, options: 0) }
-        catch { throw ToolError("serialize profile: \(error)") }
+        catch { throw ToolError("Could not serialize profile: \(error).") }
 
         if let out = output {
             do { try data.write(to: URL(fileURLWithPath: out)) }
-            catch { throw ToolError("write \(out): \(error)") }
-            stderrLine("wrote \(data.count) bytes -> \(out)")
+            catch { throw ToolError("Could not write \(out): \(error).") }
+            stderrLine("Wrote \(data.count) bytes -> \(out).")
             stderrLine("Sign for MDM: security cms -S -N \"<cert>\" -i \(out) -o signed.mobileconfig")
             stderrLine("Note: PPPC only applies under user-approved MDM / supervision; SystemPolicy*Folder is not honored — prefer FDA.")
         } else {
