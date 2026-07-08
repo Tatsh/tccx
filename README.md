@@ -6,6 +6,7 @@
 [![Tests](https://github.com/Tatsh/tccx/actions/workflows/tests.yml/badge.svg)](https://github.com/Tatsh/tccx/actions/workflows/tests.yml)
 [![Documentation Status](https://readthedocs.org/projects/tccx/badge/?version=latest)](https://tccx.readthedocs.io/en/latest/)
 [![Coverage Status](https://coveralls.io/repos/github/Tatsh/tccx/badge.svg?branch=master)](https://coveralls.io/github/Tatsh/tccx?branch=master)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-blue?logo=dependabot)](https://github.com/dependabot)
 [![Swift](https://img.shields.io/badge/Swift-5.7-orange?logo=swift&logoColor=white)](https://swift.org/)
 [![Platform: macOS](https://img.shields.io/badge/platform-macOS-lightgrey?logo=apple)](https://developer.apple.com/macos/)
 [![Prettier](https://img.shields.io/badge/Prettier-black?logo=prettier)](https://prettier.io/)

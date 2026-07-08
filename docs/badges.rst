@@ -24,6 +24,10 @@
       :target: https://coveralls.io/github/Tatsh/tccx?branch=master
       :alt: Coverage Status
 
+   .. image:: https://img.shields.io/badge/Dependabot-enabled-blue?logo=dependabot
+      :target: https://github.com/dependabot
+      :alt: Dependabot
+
    .. image:: https://img.shields.io/badge/Swift-5.7-orange?logo=swift&logoColor=white
       :target: https://swift.org/
       :alt: Swift
