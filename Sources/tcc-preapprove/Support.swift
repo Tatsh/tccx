@@ -45,12 +45,18 @@ func parseServices(_ csv: String) -> [ServiceInfo] {
     csv.split(separator: ",").map { resolveService($0.trimmingCharacters(in: .whitespaces)) }
 }
 
-func dbPath(for kind: DBKind) -> String {
+/// Test seam: override where the TCC databases live so tests can point at a temporary SQLite
+/// file instead of the real, SIP-protected paths. Production code never mutates this.
+var dbPathResolver: (DBKind) -> String = defaultDBPath
+
+func defaultDBPath(for kind: DBKind) -> String {
     switch kind {
     case .user:   return NSString(string: "~/Library/Application Support/com.apple.TCC/TCC.db").expandingTildeInPath
     case .system: return "/Library/Application Support/com.apple.TCC/TCC.db"
     }
 }
+
+func dbPath(for kind: DBKind) -> String { dbPathResolver(kind) }
 
 /// PPPC service keys drop the kTCCService prefix (e.g. SystemPolicyAllFiles).
 func pppcKey(_ service: String) -> String {
