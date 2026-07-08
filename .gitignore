@@ -27,7 +27,7 @@ Thumbs.db
 ehthumbs.db
 node_modules/
 /docs/_build/
-/man/
+/man/_static/
 .venv/
 __pycache__/
 *.pyc
