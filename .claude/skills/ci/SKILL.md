@@ -22,9 +22,9 @@ changed files, not the entire project.
 You must skip any agents that are not relevant to the changed files (e.g. if no Click command files
 changed, skip the click-auditor).
 
-### When C/C++ code is being committed
+### When Swift code is being committed
 
-If any changed files are under `src/` or `include/`, run the following agents **in order**:
+If any changed files are under `Sources/`, run the following agents **in order**:
 
 1. **copy-editor** - fix prose in comments and strings.
 1. **qa-fixer** - format and fix lint/spelling issues.
@@ -36,8 +36,8 @@ If any changed files are under `src/` or `include/`, run the following agents **
   check if `CHANGELOG.md` was modified (`git diff CHANGELOG.md`). If it was, stage it with the
   relevant commit. Follow `.claude/agents/changelog.md`, including its skip list.
 
-  Files under `Sources/`, `src/`, `include/`, or
-  dependency/version changes in `CMakeLists.txt` or `vcpkg.json` are **candidates**
+  Files under `Sources/`, or
+  dependency/version changes in `Package.swift` or `package.json` are **candidates**
   for the changelog agent only when they **change what users see or
   how the software behaves**. Editing those paths is not sufficient on its own.
 
@@ -59,7 +59,8 @@ file in a commit:
 - `CHANGELOG.md`
 - `.vscode/dictionary.txt`
 
-For example, if a commit contains `src/main.cpp`, and `CHANGELOG.md`, the component is determined by
+For example, if a commit contains `Sources/tcc-preapprove/Commands.swift`, and `CHANGELOG.md`, the
+component is determined by
 the source files only. `CHANGELOG.md` is simply staged alongside them.
 
 If `CHANGELOG.md` is the only file being committed, use the `changelog:` prefix. If
@@ -80,9 +81,9 @@ When all changes are from re-running Wiswa (the project generator) and
 no hand-written code changed, this is a **cruft update**. Indicators:
 
 - Only Wiswa-managed files changed (workflows,
-  `package.json`, `CMakeLists.txt`, `.pre-commit-config.yaml`, `.claude/agents/`, `.claude/rules/`,
+  `package.json`, `Package.swift`, `.pre-commit-config.yaml`, `.claude/agents/`, `.claude/rules/`,
   `CITATION.cff`, `.vscode/dictionary.txt`, `.wiswa.jsonnet`, etc.).
-- No files under the primary module or `src/` changed.
+- No files under the primary module or `Sources/` changed.
 
 Commit everything in a single commit with the subject `cruft: update`. Include a body summarising
 what changed (e.g. new/updated workflows, updated agent files, dependency version bumps, new managed
@@ -117,18 +118,17 @@ Closes: #123
 
 ### Component prefix rules
 
-For source files, strip the `src/` prefix and use the file name (without extension) as the
-component.
+For source files, strip the `Sources/` prefix and the target directory, then use the file name
+(without extension) as the component.
 
-- Source file `src/main.cpp` → `main:`.
-- Header file `include/tccx/util.h` → `util:`.
-- Multiple files under `src/` → `src:`.
+- Source file `Sources/tcc-preapprove/Commands.swift` → `commands:`.
+- Multiple files under `Sources/` → `sources:`.
 - Workflow file `.github/workflows/qa.yml` → `workflows/qa:`.
 - Multiple workflows → `workflows/*:`.
 - Agent files `.claude/agents/*.md` → `.claude:` or specific agent name.
 - Instruction files across all 3 locations → `project:` (since they span Copilot/Cursor/Claude).
 - Dictionary `.vscode/dictionary.txt` → `dictionary:` (only when committed alone).
-- Top-level config (`CMakeLists.txt`, `package.json`) → `project:`.
+- Top-level config (`Package.swift`, `package.json`) → `project:`.
 - If changes span many unrelated areas → `project:`.
 - CHANGELOG.md → `changelog:` (only when committed alone).
 - CONTRIBUTING.md → `contributing:`.

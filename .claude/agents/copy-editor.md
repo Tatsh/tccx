@@ -16,7 +16,7 @@ literals. You do not touch code logic, identifiers, or anything outside comments
 
 Edit prose in all text files in the repository:
 
-- C/C++ comments (`//` and `/* */` blocks) and user-facing string literals.
+- Swift comments (`//` and `/* */` blocks) and user-facing string literals.
 - Markdown files (`.md`, `.mdc`).
 - reStructuredText files (`.rst`).
 - YAML files (comments and string values).
