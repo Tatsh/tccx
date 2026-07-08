@@ -3,6 +3,7 @@
 [![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/tccx)](https://github.com/Tatsh/tccx/tags)
 [![License](https://img.shields.io/github/license/Tatsh/tccx)](https://github.com/Tatsh/tccx/blob/master/LICENSE)
 [![Build](https://github.com/Tatsh/tccx/actions/workflows/release.yml/badge.svg)](https://github.com/Tatsh/tccx/actions/workflows/release.yml)
+[![Tests](https://github.com/Tatsh/tccx/actions/workflows/tests.yml/badge.svg)](https://github.com/Tatsh/tccx/actions/workflows/tests.yml)
 [![Documentation Status](https://readthedocs.org/projects/tccx/badge/?version=latest)](https://tccx.readthedocs.io/en/latest/)
 [![Coverage Status](https://coveralls.io/repos/github/Tatsh/tccx/badge.svg?branch=master)](https://coveralls.io/github/Tatsh/tccx?branch=master)
 [![Swift](https://img.shields.io/badge/Swift-5.7-orange?logo=swift&logoColor=white)](https://swift.org/)

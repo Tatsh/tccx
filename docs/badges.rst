@@ -12,6 +12,10 @@
       :target: https://github.com/Tatsh/tccx/actions/workflows/release.yml
       :alt: Build
 
+   .. image:: https://github.com/Tatsh/tccx/actions/workflows/tests.yml/badge.svg
+      :target: https://github.com/Tatsh/tccx/actions/workflows/tests.yml
+      :alt: Tests
+
    .. image:: https://readthedocs.org/projects/tccx/badge/?version=latest
       :target: https://tccx.readthedocs.io/en/latest/
       :alt: Documentation Status
