@@ -1,6 +1,8 @@
 tccx
 ====
 
+.. include:: badges.rst
+
 Reverse-engineering of macOS **TCC** (Transparency, Consent & Control) and **SIP** (System
 Integrity Protection), worked out from the ``tccd`` binary shipped at
 ``TCC.framework/Support/tccd`` (macOS **10.15.6**) and the Ghidra project ``tcc`` - plus
