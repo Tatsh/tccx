@@ -36,7 +36,7 @@ If any changed files are under `src/` or `include/`, run the following agents **
   check if `CHANGELOG.md` was modified (`git diff CHANGELOG.md`). If it was, stage it with the
   relevant commit. Follow `.claude/agents/changelog.md`, including its skip list.
 
-  Files under `bfcodec/`, `src/`, `include/`, or
+  Files under `Sources/`, `src/`, `include/`, or
   dependency/version changes in `CMakeLists.txt` or `vcpkg.json` are **candidates**
   for the changelog agent only when they **change what users see or
   how the software behaves**. Editing those paths is not sufficient on its own.
@@ -121,7 +121,7 @@ For source files, strip the `src/` prefix and use the file name (without extensi
 component.
 
 - Source file `src/main.cpp` → `main:`.
-- Header file `include/bfcodec/util.h` → `util:`.
+- Header file `include/tccx/util.h` → `util:`.
 - Multiple files under `src/` → `src:`.
 - Workflow file `.github/workflows/qa.yml` → `workflows/qa:`.
 - Multiple workflows → `workflows/*:`.

@@ -1,6 +1,6 @@
 # Release
 
-Prepare and publish a new release for the bfcodec project.
+Prepare and publish a new release for the tccx project.
 
 You manage the release process: update the changelog, determine the version bump, run pre-commit
 checks, bump the version, and push, and align GitHub release notes
@@ -102,7 +102,7 @@ with the changelog.
      `line 2` reads as `- item with long sentence line 2`. Do **not** join across a paragraph
      break: leave any run of **two or more consecutive newlines** (`\n\n` or more) unchanged.
    - **Full Changelog line:** After the body, append **one blank line**, then exactly:
-     `**Full Changelog**: https://github.com/Tatsh/bfcodec/compare/vPREV...vNEW`
+     `**Full Changelog**: https://github.com/Tatsh/tccx/compare/vPREV...vNEW`
      where `vNEW` is this release's tag. Set `vPREV` to the tag of the
      **most recent other GitHub release** (for example from `gh release list`, ordered by recency,
      skipping `vNEW`). If no earlier release exists on GitHub, fall back to the previous version
