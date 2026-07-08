@@ -4,6 +4,8 @@ on:
     branches: [master]
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   test:
     name: Test + coverage
@@ -12,7 +14,9 @@ jobs:
       # Allow the Coveralls action's Homebrew tap to install without a trust prompt.
       HOMEBREW_NO_REQUIRE_TAP_TRUST: '1'
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
       - name: Show Swift version
         run: swift --version
       - name: Run tests with coverage
@@ -28,7 +32,7 @@ jobs:
           xcrun llvm-cov export -format=lcov "$exe" -instr-profile "$prof" \
             -ignore-filename-regex='(Tests|\.build)/' > coverage.lcov
       - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2.3.7
         with:
           file: coverage.lcov
           format: lcov

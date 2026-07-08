@@ -11,25 +11,28 @@ jobs:
   build:
     name: Build release binary
     runs-on: macos-14
+    env:
+      BIN_PATH: .build/apple/Products/Release/tcc-preapprove
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
       - name: Show Swift version
         run: swift --version
       - name: Build (release, universal)
         run: swift build -c release --arch arm64 --arch x86_64
-      - name: Resolve binary path
-        id: bin
-        run: echo "path=.build/apple/Products/Release/tcc-preapprove" >> "$GITHUB_OUTPUT"
       - name: Sign the binary with entitlements
-        run: codesign --force --sign - --entitlements entitlements.xml "${{ steps.bin.outputs.path }}"
+        run: codesign --force --sign - --entitlements entitlements.xml "$BIN_PATH"
       - name: Upload binary artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: tcc-preapprove
-          path: ${{ steps.bin.outputs.path }}
+          path: ${{ env.BIN_PATH }}
           if-no-files-found: error
-      - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
+      - if: github.ref_type == 'tag'
+        name: Create or update draft release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${{ github.ref_name }}" "${{ steps.bin.outputs.path }}" --generate-notes
+        run: |
+          gh release create "$GITHUB_REF_NAME" --draft --generate-notes "$BIN_PATH" ||
+            gh release upload "$GITHUB_REF_NAME" "$BIN_PATH" --clobber
