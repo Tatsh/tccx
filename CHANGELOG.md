@@ -7,6 +7,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-07-08
+
+### Changed
+
+- Pin `swift-argument-parser` to 1.8.2 so builds resolve a fixed dependency version.
+
 ## [0.0.1] - 2026-07-08
 
 ### Added
