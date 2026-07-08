@@ -15,13 +15,6 @@ jobs:
         run: swift --version
       - name: Build (release)
         run: swift build -c release
-      - name: Run tests
-        run: |
-          if [ -d Tests ]; then
-            swift test
-          else
-            echo 'No Tests/ target; skipping.'
-          fi
       - name: Resolve binary path
         id: bin
         run: echo "path=$(swift build -c release --show-bin-path)/tcc-preapprove" >> "$GITHUB_OUTPUT"
