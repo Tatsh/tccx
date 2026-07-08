@@ -30,6 +30,7 @@
 /.claude/standing-instructions.md
 /.claude/statusline-quota-cache.sh
 /.claude/stop-failure-events.jsonl
+/.wiswa-ci/
 /HANDOFF.md
 /docs/_build/
 /man/_static/
