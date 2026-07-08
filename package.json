@@ -41,7 +41,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-sort-json": "^4.2.0"
   },
-  "files": ["LICENSE", "Package.swift", "README.md", "Sources", "docs", "headers"],
+  "files": ["LICENSE", "Package.swift", "README.md", "Sources", "docs"],
   "homepage": "https://github.com/Tatsh/tccx#readme",
   "keywords": [
     "command line",

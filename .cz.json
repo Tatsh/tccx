@@ -1,7 +1,7 @@
 {
   "commitizen": {
     "name": "cz_path",
-    "remove_path_prefixes": ["include", "src"],
+    "remove_path_prefixes": ["Sources"],
     "tag_format": "v$version",
     "version_files": [
       "CITATION.cff",
