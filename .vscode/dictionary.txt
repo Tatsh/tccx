@@ -4,6 +4,7 @@ apfs
 appbundles
 asan
 atoken
+autobuild
 autodoc
 baccessibility
 bappbundles
