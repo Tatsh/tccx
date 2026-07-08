@@ -1,38 +1,51 @@
-name: CodeQL
-on:
-  push:
-    branches: [master]
-    paths:
-      - '**/*.swift'
-  pull_request:
-    branches: [master]
-    paths:
-      - '**/*.swift'
-  schedule:
-    - cron: '15 4 * * 3'
 jobs:
   analyze:
-    name: Analyze
-    runs-on: macos-14
+    name: 'Analyze'
     permissions:
-      actions: read
-      contents: read
-      security-events: write
+      actions: 'read'
+      contents: 'read'
+      security-events: 'write'
+    runs-on: 'macos-14'
+    steps:
+      - name: 'Checkout repository'
+        uses: 'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0' # v7.0.0
+        with:
+          persist-credentials: false
+      - name: 'Initialize CodeQL'
+        uses: 'github/codeql-action/init@99df26d4f13ea111d4ec1a7dddef6063f76b97e9' # v4.37.0
+        with:
+          languages: '${{ matrix.language }}'
+      - name: 'Autobuild'
+        uses: 'github/codeql-action/autobuild@99df26d4f13ea111d4ec1a7dddef6063f76b97e9' # v4.37.0
+      - name: 'Perform CodeQL Analysis'
+        uses: 'github/codeql-action/analyze@99df26d4f13ea111d4ec1a7dddef6063f76b97e9' # v4.37.0
+        with:
+          category: '/language:${{ matrix.language }}'
     strategy:
       fail-fast: false
       matrix:
-        language: [swift]
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          persist-credentials: false
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@99df26d4f13ea111d4ec1a7dddef6063f76b97e9 # v4.37.0
-        with:
-          languages: ${{ matrix.language }}
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@99df26d4f13ea111d4ec1a7dddef6063f76b97e9 # v4.37.0
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@99df26d4f13ea111d4ec1a7dddef6063f76b97e9 # v4.37.0
-        with:
-          category: '/language:${{ matrix.language }}'
+        language:
+          - 'actions'
+          - 'swift'
+name: 'CodeQL'
+'on':
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - '**/*.swift'
+      - '**/action.yaml'
+      - '**/action.yml'
+      - '.github/workflows/*.yaml'
+      - '.github/workflows/*.yml'
+  push:
+    branches:
+      - 'master'
+    paths:
+      - '**/*.swift'
+      - '**/action.yaml'
+      - '**/action.yml'
+      - '.github/workflows/*.yaml'
+      - '.github/workflows/*.yml'
+  schedule:
+    - cron: '15 4 * * 3'
