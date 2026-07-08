@@ -12,7 +12,7 @@ jobs:
       # Allow the Coveralls action's Homebrew tap to install without a trust prompt.
       HOMEBREW_NO_REQUIRE_TAP_TRUST: '1'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Show Swift version
         run: swift --version
       - name: Run tests with coverage
