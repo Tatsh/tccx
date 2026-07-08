@@ -58,10 +58,10 @@ struct TCCPreapprove: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "tcc-preapprove",
         abstract: "Inspect / pre-approve / revoke TCC grants for a binary or app (macOS).",
-        version: "0.0.0",
         discussion: "Built from tccd (10.15.6) RE notes (docs/tcc-internals.md). "
             + "Grant/revoke/list need FDA or SIP-off (root for the system DB); "
             + "profile needs neither.",
+        version: "0.0.0",
         subcommands: [Grant.self, Revoke.self, List.self, Profile.self],
         defaultSubcommand: Grant.self
     )
