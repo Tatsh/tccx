@@ -42,8 +42,8 @@ To build it locally: `yarn gen-docs` (output in `docs/_build/html`).
 Everything runs through `package.json` scripts:
 
 ```bash
-yarn build          # swift build (debug)
-yarn build:release  # swift build -c release
+yarn build          # debug build, signed with entitlements
+yarn build:release  # universal (arm64 + x86-64) release build, signed with entitlements
 yarn test           # swift test
 swift run tcc-preapprove --help
 ```
