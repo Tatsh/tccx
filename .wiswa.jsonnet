@@ -1,7 +1,7 @@
 {
   uses_user_defaults: true,
   project_name: 'tccx',
-  version: '0.0.3',
+  version: '0.0.4',
   keywords: ['apple', 'ios', 'macos', 'reverse engineering', 'sip', 'tcc'],
   description: "Research on Apple's Transparency, Consent & Control (TCC) system.",
   custom_project_badges: [

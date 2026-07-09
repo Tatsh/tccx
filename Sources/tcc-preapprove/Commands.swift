@@ -61,7 +61,7 @@ struct TCCPreapprove: ParsableCommand {
         discussion: "Built from tccd (10.15.6) RE notes (docs/tcc-internals.md). "
             + "Grant/revoke/list need FDA or SIP-off (root for the system DB); "
             + "profile needs neither.",
-        version: "0.0.3",
+        version: "0.0.4",
         subcommands: [Grant.self, Revoke.self, List.self, Profile.self],
         defaultSubcommand: Grant.self
     )

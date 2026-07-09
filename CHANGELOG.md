@@ -7,6 +7,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.4] - 2026-07-09
+
+### Fixed
+
+- Restore `entitlements.xml` to the plist format `codesign` accepts, after Prettier reformatted it
+  into a form the AMFI parser rejects.
+
 ## [0.0.3] - 2026-07-08
 
 ### Fixed

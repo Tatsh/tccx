@@ -124,5 +124,5 @@
     "run": "swift run tcc-preapprove",
     "test": "swift test"
   },
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
