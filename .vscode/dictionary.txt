@@ -82,6 +82,7 @@ preapprove
 preapproved
 procs
 profdata
+publickey
 pycache
 pydantic
 pyinstaller
