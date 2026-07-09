@@ -76,6 +76,10 @@
     },
   },
   prettierignore+: [
+    // entitlements.xml is an Apple entitlements plist. AMFI's parser (AMFIUnserializeXML) is
+    // stricter than XML and rejects Prettier's reformatting (a space in `<true />`, a wrapped
+    // DOCTYPE), which makes codesign fail, so it must never be formatted.
+    'entitlements.xml',
     '*.swift',
   ],
   gitignore+: [

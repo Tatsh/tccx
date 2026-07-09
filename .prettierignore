@@ -47,5 +47,6 @@
 /HANDOFF.md
 /build/
 /dist/
+entitlements.xml
 node_modules/
 pylock*.toml
