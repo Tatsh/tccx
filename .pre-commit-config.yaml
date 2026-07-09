@@ -25,7 +25,9 @@ repos:
       - id: 'check-toml'
       - id: 'debug-statements'
       - id: 'destroyed-symlinks'
-      - id: 'detect-aws-credentials'
+      - args:
+          - '--allow-missing-credentials'
+        id: 'detect-aws-credentials'
       - id: 'detect-private-key'
       - exclude: "^vcpkg.*\\.json$"
         id: 'end-of-file-fixer'
@@ -45,7 +47,7 @@ repos:
         id: 'check-jsonschema'
         name: 'validate package.json'
     repo: 'https://github.com/python-jsonschema/check-jsonschema'
-    rev: '0.37.2'
+    rev: '0.37.4'
   - hooks:
       - id: 'zizmor'
     repo: 'https://github.com/zizmorcore/zizmor-pre-commit'
@@ -93,4 +95,4 @@ repos:
   - hooks:
       - id: 'cspell'
     repo: 'https://github.com/streetsidesoftware/cspell-cli'
-    rev: 'v10.0.0'
+    rev: 'v10.0.1'

@@ -4,12 +4,13 @@
     "remove_path_prefixes": ["Sources"],
     "tag_format": "v$version",
     "version_files": [
+      ".wiswa.jsonnet",
       "CITATION.cff",
-      "Package.swift",
       "README.md",
+      "package.json",
+      "Package.swift",
       "Sources/tcc-preapprove/Commands.swift",
       "man/tcc-preapprove.1",
-      "package.json",
       "pyproject.toml"
     ],
     "version_provider": "npm",
