@@ -115,6 +115,7 @@ unbootable
 undraft
 undrafted
 unentitled
+unserialize
 userspace
 vendored
 venv
