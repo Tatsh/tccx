@@ -25,7 +25,7 @@ docs = [
   "sphinx-datatables>=1.0.0",
   "sphinx-immaterial>=0.13.9",
   "sphinx>=9.1.0",
-  "tomlkit>=0.15.0",
+  "tomlkit>=0.15.1",
 ]
 
 [tool.doc8]
