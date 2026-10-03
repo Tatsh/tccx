@@ -1,5 +1,5 @@
 amfi
-Ångström
+amfi's
 apfs
 appbundles
 atoken
@@ -14,7 +14,6 @@ codesign
 commitizen
 conds
 configurator
-cooldown
 coveragerc
 coverallsapp
 csrctl
@@ -47,7 +46,6 @@ honored
 incl
 installd
 instr
-intersphinx
 iterm
 jamf
 jinja
@@ -64,7 +62,6 @@ libobjc
 libsonnet
 libsystem
 macf
-merkle
 micromdm
 mktemp
 mobileconfig
@@ -73,7 +70,9 @@ mypy
 nanomdm
 nonexistent
 nonzero
+noone
 norestricted
+numpydoc
 objc
 oneline
 parsable
@@ -82,7 +81,6 @@ preapprove
 preapproved
 procs
 profdata
-publickey
 pycache
 pydantic
 pyinstaller
@@ -124,7 +122,6 @@ virtualenv
 winget
 wiswa
 wiswa's
-worktree
 writable
 xattr
 xcodeproj
@@ -132,3 +129,4 @@ xcrun
 xctest
 yarnrc
 zizmor
+Ångström

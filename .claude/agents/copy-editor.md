@@ -29,9 +29,23 @@ Do not edit:
 - Code identifiers, variable names, function names, or class names.
 - Code logic or structure.
 - Import statements.
+- Assistant instructions. `AGENTS.md`, `CLAUDE.md`, and everything under `.claude/` are out of
+  scope, including when the user requests every file. Edit one of them only when the user has
+  requested a change to that file.
 - Files in `.venv/`, `node_modules/`, or other vendored/generated directories.
 
 ## Style Rules
+
+Read [.claude/rules/prose.md](../rules/prose.md) before the first edit and apply every rule in it,
+without exception. That file bans contractions, en and em dashes, a list of verbs and idioms,
+several sentence patterns, and several heading forms. It covers Markdown, plain comments, formal
+documentation comments (Numpydoc, JSDoc, Doxygen, and equivalents), user-facing strings, and commit
+messages. The rules below are additional. Where the two overlap, `prose.md` wins.
+
+Apply `prose.md` adversarially. When a sentence is defensible under a loose reading and a violation
+under a strict one, treat it as a violation. A borderline construction is rewritten, not excused,
+and doubt resolves toward the edit. This overrides the softer defaults further down. A `prose.md`
+violation is rewritten even when the sentence reads well.
 
 ### Sentences and punctuation
 
@@ -84,6 +98,7 @@ Do not edit:
 - Fix dangling modifiers where the meaning is clear.
 - Fix incorrect articles (`a` vs `an`).
 - Do not rewrite prose that is already clear and correct, even if you would phrase it differently.
+  A `prose.md` violation is the exception and is always rewritten.
 
 ## Workflow
 

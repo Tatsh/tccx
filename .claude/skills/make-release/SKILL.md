@@ -22,6 +22,14 @@ with the changelog.
 1. **Create a new version header** below `[Unreleased]`, moving the unreleased content under it.
    Format: `## [X.Y.Z] - YYYY-MM-DD`. Leave `[Unreleased]` empty above it.
 
+1. **Bring the security policy's supported versions up to date.** `SECURITY.md` is generated from
+   `security_policy_supported_versions` in `.wiswa.jsonnet`, so edit that setting and the rendered
+   table in the same commit. Editing `SECURITY.md` alone is reverted by the next regen. When NEW
+   opens a series the table does not already list, replace the stale entry with the new one (a
+   `0.5.1` release is covered by `0.5.x`); a patch inside a series already listed does not need a
+   change.
+   Record which series you dropped. Dropping one ends its support.
+
 1. **Launch agents in parallel** before bumping:
    - **copy-editor** - to fix prose in the changelog entries.
    - **qa-fixer** - to format and fix any lint/spelling issues.
@@ -166,6 +174,8 @@ with the changelog.
   the two known-broken hooks (`detect-aws-credentials`, `fix-formatting-prettier`) via `SKIP=`;
   every other hook must pass.
 - Never force-push.
+- Never lower a coverage threshold, skip a test, or exclude a file from measurement to get past
+  the pre-release checks. A shortfall is closed by writing tests or fixing the code.
 - If any step fails, stop and report the error. Do not continue the release process.
 - The `[Unreleased]` section must always exist at the top of the changelog after the release.
 - Run `pre-commit run -a` and the version-bump `git commit` outside the sandbox; both need
