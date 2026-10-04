@@ -90,6 +90,7 @@ pyproject
 readwrite
 regen
 ripgreprc
+sbclaude
 schemafile
 setgid
 setuid
