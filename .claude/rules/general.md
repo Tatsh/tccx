@@ -45,6 +45,8 @@ concrete repository change, do not edit project files.
   American English (`ColorCode` not `ColourCode`).
 - Add new words to `.vscode/dictionary.txt` in lowercase and keep the file sorted. Prefer to commit
   dictionary changes separately with the message `dictionary: update`.
+- Do not use `echo`, `cat`, `printf`, `python`, `perl`, or other shell commands to write to files.
+  Use `Write()` for new files and `Edit()` for existing files.
 
 ## Avoiding Permission Prompts
 

@@ -39,6 +39,19 @@ with the changelog.
    release-time discoveries (for example a `version_files` entry that was missing) must
    round-trip so the next regen reproduces them.
 
+1. **Confirm the last CI runs passed.** Nothing is released on top of a red
+   `master`. List the project's workflows with `gh workflow list`, and for
+   each one that runs on pushes rather than only on tags, read its most recent run:
+   `gh run list --workflow <file> --branch master --limit 1`. This covers
+   the QA and test workflows and the packaging ones the project has - Flatpak, Snap, AppImage,
+   and PyInstaller. Every conclusion must be `success`; read a failure with
+   `gh run view <run-id> --log-failed` and fix it before releasing. A workflow that has never run
+   is not a failure.
+
+   Compare the head SHA of the newest **tests** run against `git rev-parse HEAD`. When they
+   differ, the commits about to be released were never tested; say so, and let the user decide
+   whether to push and wait before continuing.
+
 1. **Run `pre-commit run -a` outside the sandbox** to ensure all hooks pass. The hooks write
    across the working tree, which the sandbox's read-only mount blocks. Fix any issues before
    proceeding. Two hooks are known-broken in this repository and must be skipped with
@@ -84,9 +97,12 @@ with the changelog.
    remaining change to that file is the version field. Do this after reverting collisions so
    both edits are captured, and confirm with `git diff package.json`.
 
+1. **Set the release date in `CITATION.cff`** if the file exists. Replace the `date-released`
+   value with today's date in `YYYY-MM-DD` form. `cz bump` does not update this field.
+
 1. **Verify version-bound and source-bound files.** Stop and report if any check fails:
    - **`CITATION.cff`** if present: `version` matches `NEW` and `date-released` equals today's
-     date. If `cz bump` did not update either, the file is missing from
+     date. If `cz bump` did not update `version`, the file is missing from
      `[tool.commitizen].version_files` - add it, rerun **wiswa-sync**, and restart the bump.
    - **Flatpak manifest** (`flatpak/**`, any `*.flatpak.{json,yaml}`) if present: every version
      reference is updated to `NEW` (cz must drive this through `version_files` - fix the

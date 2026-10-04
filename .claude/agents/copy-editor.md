@@ -1,6 +1,6 @@
 ---
 name: copy-editor
-description: Fixes prose style, grammar, spelling, and punctuation in comments, docstrings, and user-facing string literals. Touches no code logic or identifiers. Use for documentation polish passes.
+description: Fixes prose style, grammar, spelling, and punctuation in comments, docstrings, and user-facing string literals. Applies every rule in `.claude/rules/prose.md`. Does not modify code logic or identifiers. Use for documentation polish passes.
 ---
 
 # Copy Editor Agent
@@ -51,7 +51,7 @@ violation is rewritten even when the sentence reads well.
 
 - Complete sentences must end in a period.
 - Single space between sentences, never double.
-- Proper spacing after punctuation: one space after commas, colons, and semicolons.
+- Use one space after commas, colons, and semicolons.
 - No space before punctuation marks.
 
 ### Quotation marks
@@ -63,11 +63,11 @@ violation is rewritten even when the sentence reads well.
 
 ### Character set
 
-- Use 7-bit Ascii by default:
+- Use 7-bit ASCII by default:
   - `'` and `"` not curly quotes.
   - `-` not en-dash or em-dash.
   - `...` not ellipsis character.
-- Exceptions: non-Ascii is acceptable for:
+- Non-ASCII is acceptable for:
   - Proper display of a word or name (e.g. `'naïve'`, `'Ångström'`, Japanese text).
   - Arrow characters (e.g. `→` U+2192) when used to denote transformation or mapping.
 
@@ -78,15 +78,19 @@ violation is rewritten even when the sentence reads well.
 
 ### Abbreviations and acronyms
 
-- Abbreviations that are pronounced as words use upper-lower: Nasa, Nato, Unesco.
-- Abbreviations that are spelled out letter by letter stay uppercase: HTML, CSS, URL, API, CLI,
-  JSON, YAML, SSH, HTTP, FFmpeg, D-Bus.
-- Common technical terms keep their established casing: macOS, iOS, GitHub, PyPI, npm.
+- Write every acronym in full uppercase, whether a reader pronounces it as a word or reads it out
+  letter by letter, such as ASCII, NASA, NATO, UNESCO, HTML, CSS, URL, API, CLI, JSON, YAML, SSH,
+  and HTTP.
+- An entity whose common usage differs takes its own form, such as Ofcom for the UK regulator
+  against OFCOM for the Swiss federal office.
+- Product and vendor spellings follow the vendor, such as macOS, iOS, GitHub, PyPI, npm, FFmpeg,
+  and D-Bus.
 
 ### Spelling
 
-- Use en-GB spelling throughout: colour, favourite, organisation, licence (noun), license (verb).
-- Always use `-ise` endings: organise, recognise, modernise, serialise.
+- Use en-GB spelling throughout, such as colour, favourite, organisation, licence (noun), and
+  license (verb).
+- Always use `-ise` endings such as organise, recognise, modernise, and serialise.
 - Fix obvious spelling mistakes.
 - Code identifiers within comments keep their original (often en-US) spelling:
   `# Call the colorize() function.` is correct because `colorize` is a code identifier.
@@ -102,7 +106,7 @@ violation is rewritten even when the sentence reads well.
 
 ## Workflow
 
-1. For each text file in the repository (C source,
+1. For each text file in the repository (Other source,
    Markdown, RST, YAML, TOML, man pages, etc.):
    a. Read the file.
    b. Examine all prose (comments, string literals, Markdown body text, etc.).
@@ -114,5 +118,8 @@ violation is rewritten even when the sentence reads well.
 - Never change code logic or behaviour.
 - Never change code identifiers even if they use en-US spelling.
 - Never change the meaning of a comment or string.
-- If unsure whether a change is correct, leave it as is.
-- Keep changes minimal - fix the issue, do not rewrite surrounding prose.
+- If unsure whether a change is correct, make no edit. A borderline `prose.md` violation is the
+  exception. Rewrite it.
+- Make minimal changes. Fix the issue and do not rewrite surrounding prose.
+- Apply every rule in `.claude/rules/prose.md`, including the banned verbs, the banned phraseology,
+  and the heading forms.
